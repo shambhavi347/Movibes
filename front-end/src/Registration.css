@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+* {
+  padding: 0;
+  margin-top: 0;
+  box-sizing: border-box;
+  font-family: "Itim", cursive;
+}
+.body {
+  padding-top: 7vh;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  padding: 60px;
+  background-color: #f2f4f4;
+  align-content: center;
+}
+.regHead {
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 20px;
+}
+.userImg {
+  margin-top: 15px;
+  margin-bottom: -25px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: transparent;
+  opacity: 0.8;
+}
+input {
+  border: 0;
+  border-bottom: 1px solid #888888;
+  outline: 0;
+  font-size: medium;
+}
+input[file] {
+  border: 0 !important;
+}
+input:focus {
+  outline: none !important;
+}
+.radioGroup {
+  font-size: medium;
+  margin-top: 15px;
+  margin-bottom: -10px;
+  padding: 20px;
+}
+input[type="file"]::file-selector-button {
+  font-family: "Itim", cursive;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: 0;
+  background-color: #aeb6bf;
+  margin-left: 60px;
+  margin-right: 10px;
+}
+.btn:hover,
+input[type="file"]::file-selector-button:hover {
+  opacity: 0.8;
+}
+.btn {
+  border-radius: 5px;
+  border: 0;
+  height: 60px;
+  width: 250px;
+  margin-top: auto;
+  margin-bottom: 15px;
+  background-color: #34495e;
+  color: #f2f4f4;
+  font-size: x-large;
+}
+.signupImg {
+  max-width: 100%;
+  flex-basis: 40%;
+  padding: 0;
+  margin-top: auto;
+}
+.img {
+  border-left: 1px solid rgba(52, 73, 94, 0.1);
+}
+.img,
+.regForm {
+  display: table-cell;
+  vertical-align: middle;
+}
+.regBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 2px 5px 5px #888888;
+  display: table;
+  background-color: white;
+  width: 70%;
+  height: 70%;
+  margin: auto;
+  border-radius: 15px;
+}
+.form-element {
+  justify-content: left;
+  display: flex;
+  padding: 20px;
+  padding-left: 0;
+  margin: auto;
+}
