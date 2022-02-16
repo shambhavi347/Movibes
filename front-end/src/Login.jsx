@@ -12,6 +12,7 @@ const Login = () => {
           <div className="regBox">
             <form className="regForm">
               <input
+                autoComplete="off"
                 className="form-element"
                 placeholder="Username..."
                 type="text"
@@ -19,6 +20,7 @@ const Login = () => {
                 id=""
               />
               <input
+                autoComplete="off"
                 className="form-element"
                 placeholder="Password..."
                 type="text"
