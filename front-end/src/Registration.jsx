@@ -45,7 +45,10 @@ const Register = () => {
   return (
     <div className="body">
       <div className="main">
-        <h1 className="regHead">Registration Page</h1>
+        <h1 className="regHead">Registration Yourself</h1>
+        <p className="loginWelcome">
+          Welcome to Movibes! Create an account and follow us on this journey
+        </p>
         <div className="regBox">
           <form className="regForm" onSubmit={formSubmit}>
             <input

@@ -6,7 +6,14 @@
   font-family: "Itim", cursive;
 }
 .body {
-  padding-top: 7vh;
+  padding-top: 2vh;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+#main {
+  height: 98vh;
+  overflow: hidden;
 }
 
 .main {
@@ -31,9 +38,17 @@
   background-color: transparent;
   opacity: 0.8;
 }
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 250px;
+  padding: 20px;
+  background-color: #f2f4f4;
+  border-radius: 20px;
+  border: 1px solid rgba(52, 73, 94, 0.1);
+}
 input {
   border: 0;
-  border-bottom: 1px solid #888888;
   outline: 0;
   font-size: medium;
 }
@@ -64,11 +79,11 @@ input[type="file"]::file-selector-button:hover {
   opacity: 0.8;
 }
 .btn {
-  border-radius: 5px;
+  border-radius: 20px;
   border: 0;
   height: 60px;
   width: 250px;
-  margin-top: auto;
+  margin: 30px 15px;
   margin-bottom: 15px;
   background-color: #34495e;
   color: #f2f4f4;
@@ -80,10 +95,19 @@ input[type="file"]::file-selector-button:hover {
   padding: 0;
   margin-top: auto;
 }
-.img {
+.Img {
+  width: 500px;
+  height: 400px;
+  flex-basis: 40%;
+  padding: 0;
+  margin-top: auto;
+}
+.img,
+.Img {
   border-left: 1px solid rgba(52, 73, 94, 0.1);
 }
 .img,
+.Img,
 .regForm {
   display: table-cell;
   vertical-align: middle;
@@ -107,4 +131,9 @@ input[type="file"]::file-selector-button:hover {
   padding: 20px;
   padding-left: 0;
   margin: auto;
+  margin-top: 20px;
+}
+.loginWelcome {
+  opacity: 0.7;
+  text-align: center;
 }
