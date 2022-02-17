@@ -1,6 +1,16 @@
 import React from "react";
 import signin from "./Image/sign-in.png";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = "/home-page";
+    navigate(path);
+  };
+  const formSubmit = (e) => {
+    e.preventDefault();
+    routeChange();
+  };
   return (
     <>
       <div className="body">
@@ -10,7 +20,7 @@ const Login = () => {
             Welcome! Login to your account and get started
           </p>
           <div className="regBox">
-            <form className="regForm">
+            <form onSubmit={formSubmit} className="regForm">
               <input
                 autoComplete="off"
                 className="form-element"
@@ -23,7 +33,7 @@ const Login = () => {
                 autoComplete="off"
                 className="form-element"
                 placeholder="Password..."
-                type="text"
+                type="password"
                 name="password"
                 id=""
               />

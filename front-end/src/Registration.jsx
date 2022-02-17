@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import profileImg from "./Image/user.jpg";
 import signup from "./Image/sign-up.png";
 import "./Registration.css";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [preview, setPreview] = useState(profileImg);
   const [gender, setGender] = useState("male");
@@ -33,10 +34,17 @@ const Register = () => {
     setPreview(URL.createObjectURL(e.target.files[0]));
   };
 
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = "/set-preference";
+    navigate(path);
+  };
+
   const formSubmit = (e) => {
     e.preventDefault();
     if (password && email && name && age && gender && preview && username) {
       console.log("Login");
+      routeChange();
     } else {
       alert("Please fill entire form!");
     }
