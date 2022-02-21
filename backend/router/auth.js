@@ -12,7 +12,7 @@ router.post('/reg', async (req,res) => {
 
     const { name, email, password, username, gender, age}=req.body;
     if( !name || !email || !password || !username || !gender || !age ){
-      return res.status(422).json({error:'error  field not filled properly in regit config --global core.autocrlf truegistration page '});
+      return res.status(422).json({error:'error  field not filled properly in registration page '});
     }
 
     try{
