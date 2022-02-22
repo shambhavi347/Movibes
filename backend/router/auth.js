@@ -1,11 +1,8 @@
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 require('../db/conn');
 const User = require('../model/userSchema');
-
-// router.get('/',(req,res) =>{
-//     res.send(`hello this is a home page`);
-// });
 
 //registration route
 router.post('/reg', async (req,res) => {
@@ -42,12 +39,12 @@ router.post('/reg', async (req,res) => {
 router.post('/', async (req,res) =>{
 
    try{
+  
        const { username , password } =req.body;
       if( !username || !password)
     { 
      return res.status(422).json({error:'error  field not filled properly in login page '});
     }  
-
     const userLogin =  await User.findOne({ username:username });
     if(!userLogin || userLogin.password!=password )
     {
@@ -55,9 +52,15 @@ router.post('/', async (req,res) =>{
     }
     else
     {
+     
+       const token = await userLogin.generateAuthToken();
+        res.cookie("jwtoken", token, {
+            expires:new  Date(Date.now()+ 25892000000),
+            httpOnly:true
+
+        });
        
          res.json({message:"user login  👍successfully"});
-       
     }
    } catch(err)
    {

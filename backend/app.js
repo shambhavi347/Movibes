@@ -16,9 +16,9 @@ const middleware= (req,res,next) =>{
     console.log(`Hello my middleware`);
     next();
 };
- /*app.get('/',(req,res) =>{
-    res.send(`Hello guys`);
-});*/
+//  app.get('/',(req,res) =>{
+//     res.send(`Hello guys`);
+// });
 
 app.get('/reg',middleware,(req,res)=>{
     console.log(`hello registration page`);
