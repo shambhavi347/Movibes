@@ -11,7 +11,7 @@ import Error from "./Error";
 import SetPreference from "./SetPreference";
 import HomePage from "./HomePage";
 import NavBar from "./NavBar";
-
+import React from "react";
 const App = () => {
   return (
     <>
