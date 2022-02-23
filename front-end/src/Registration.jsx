@@ -32,15 +32,33 @@ const Register = () => {
     navigate(path);
   };
 
-  const formSubmit = (e) => {
+  const postData = async (e) => {
     e.preventDefault();
-    routeChange();
-    // if (password && email && name && age && gender && preview && username) {
-    //   console.log("Login");
-    //   routeChange();
-    // } else {
-    //   alert("Please fill entire form!");
-    // }
+    const { name, email, age, username, password, gender } = user;
+    const res = await fetch("/reg", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        age,
+        username,
+        password,
+        gender,
+      }),
+    });
+    const data = await res.json();
+    if (data.status === 422 || !data) {
+      window.alert("Invalid Registration!!");
+      console.log("Invalid Registration");
+    } else {
+      window.alert("Successfull Registration!!");
+      console.log("Successfull Registration");
+      routeChange();
+    }
   };
 
   return (
@@ -51,7 +69,8 @@ const Register = () => {
           Welcome to Movibes! Create an account and follow us on this journey
         </p>
         <div className="regBox">
-          <form className="regForm" onSubmit={formSubmit}>
+          <form method="POST" className="regForm">
+            {/* onSubmit={formSubmit}> */}
             <input
               className="form-element"
               type="text"
@@ -145,7 +164,7 @@ const Register = () => {
                 onChange={handleChange}
               />
             </div>
-            <button className="form-element" className="btn">
+            <button className="form-element" className="btn" onClick={postData}>
               Submit
             </button>
           </form>
