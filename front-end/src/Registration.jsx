@@ -5,35 +5,27 @@ import "./Registration.css";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [preview, setPreview] = useState(profileImg);
-  const [gender, setGender] = useState("male");
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-
-  const handleGender = (e) => {
-    setGender(e.target.value);
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    age: "",
+    username: "",
+    password: "",
+    gender: "male",
+    photo: "",
+  });
+  let name, value;
+  const handleChange = (e) => {
+    console.log(e);
+    name = e.target.name;
+    if (name === "photo") {
+      setPreview(URL.createObjectURL(e.target.files[0]));
+      value = e.target.files[0];
+    } else {
+      value = e.target.value;
+    }
+    setUser({ ...user, [name]: value });
   };
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleAge = (e) => {
-    setAge(e.target.value);
-  };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleImage = (e) => {
-    setPreview(URL.createObjectURL(e.target.files[0]));
-  };
-
   let navigate = useNavigate();
   const routeChange = () => {
     let path = "/set-preference";
@@ -42,12 +34,13 @@ const Register = () => {
 
   const formSubmit = (e) => {
     e.preventDefault();
-    if (password && email && name && age && gender && preview && username) {
-      console.log("Login");
-      routeChange();
-    } else {
-      alert("Please fill entire form!");
-    }
+    routeChange();
+    // if (password && email && name && age && gender && preview && username) {
+    //   console.log("Login");
+    //   routeChange();
+    // } else {
+    //   alert("Please fill entire form!");
+    // }
   };
 
   return (
@@ -64,71 +57,75 @@ const Register = () => {
               type="text"
               placeholder="Name..."
               name="name"
-              id=""
+              value={user.name}
               autoComplete="off"
-              onChange={handleName}
+              onChange={handleChange}
             />
             <input
               className="form-element"
               type="email"
-              placeholder="Email..."
               name="email"
+              placeholder="Email..."
+              value={user.email}
               autoComplete="off"
-              onChange={handleEmail}
+              onChange={handleChange}
             />
 
             <input
               className="form-element"
               type="text"
               name="age"
+              value={user.age}
               placeholder="Age..."
               id=""
-              onChange={handleAge}
+              onChange={handleChange}
             />
             <input
               className="form-element"
               type="text"
               name="username"
+              value={user.username}
               placeholder="Username..."
               id=""
               autoComplete="off"
-              onChange={handleUsername}
+              onChange={handleChange}
             />
             <input
               className="form-element"
               type="password"
               name="password"
+              value={user.password}
               placeholder="Password..."
               id=""
               autoComplete="off"
-              onChange={handlePassword}
+              onChange={handleChange}
             />
 
             <div className="radioGroup">
               <input
                 type="radio"
-                name="male"
+                name="gender"
                 value="male"
-                checked={gender === "male"}
-                onChange={handleGender}
+                checked={user.gender === "male"}
+                onChange={handleChange}
               />
               Male
               <input
                 type="radio"
-                name="female"
+                name="gender"
                 value="female"
-                checked={gender === "female"}
-                onChange={handleGender}
+                checked={user.gender === "female"}
+                onChange={handleChange}
               />
               Female
               <input
                 type="radio"
-                name="third"
-                value="third"
-                checked={gender === "third"}
-                onChange={handleGender}
+                name="gender"
+                value="transgender"
+                checked={user.gender === "transgender"}
+                onChange={handleChange}
               />
-              Third Gender
+              Transgender
             </div>
             <div className="img-holder">
               <img
@@ -143,9 +140,9 @@ const Register = () => {
                 className="form-element"
                 type="file"
                 accept="image/*"
-                name="Image"
+                name="photo"
                 autoComplete="off"
-                onChange={handleImage}
+                onChange={handleChange}
               />
             </div>
             <button className="form-element" className="btn">

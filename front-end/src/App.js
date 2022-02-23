@@ -5,15 +5,11 @@ import Login from "./Login";
 import Error from "./Error";
 import SetPreference from "./SetPreference";
 import HomePage from "./HomePage";
-import NavBar from "./NavBar";
-<<<<<<< HEAD
+// import NavBar from "./NavBar";
 import NavBar1 from "./NavBar1";
 import NavBar2 from "./NavBar2";
 
 const App = (props) => {
-=======
-const App = () => {
->>>>>>> 1f95d6351beab1f28456b1a01d9047b32b15aaa8
   return (
     <>
       <Router>
