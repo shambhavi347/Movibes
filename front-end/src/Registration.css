@@ -21,7 +21,11 @@
   height: 100%;
   padding: 60px;
   background-color: #f2f4f4;
+  background-image: url("./Image/bckgrndLogin.png");
+  background-attachment: fixed;
+  background: position auto;
   align-content: center;
+  background-size: cover;
 }
 .regHead {
   align-content: center;
@@ -117,7 +121,7 @@ input[type="file"]::file-selector-button:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 2px 5px 5px #888888;
+  box-shadow: 2px 5px 5px #0f1622;
   display: table;
   background-color: white;
   width: 70%;
@@ -136,4 +140,8 @@ input[type="file"]::file-selector-button:hover {
 .loginWelcome {
   opacity: 0.7;
   text-align: center;
+  color: #f2f4f4;
+}
+.regHead {
+  color: white;
 }

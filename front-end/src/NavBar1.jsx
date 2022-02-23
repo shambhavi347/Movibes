@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 var Style = {
   position: "fixed",
-  boxShadow: "2px 5px 5px #888888",
+  boxShadow: "2px 3px 5px #0f1622",
   width: "100%",
   height: "8vh",
-  backgroundColor: "#34495E",
+  backgroundColor: "#213455",
   textAlign: "right",
   float: "left",
   padding: "8px 14px",

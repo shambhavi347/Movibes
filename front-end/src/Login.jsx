@@ -1,10 +1,12 @@
 import React from "react";
 import signin from "./Image/sign-in.png";
 import { useNavigate } from "react-router-dom";
+import NavBar2 from "./NavBar2";
 const Login = () => {
   let navigate = useNavigate();
   const routeChange = () => {
     let path = "/home-page";
+    <NavBar2 />;
     navigate(path);
   };
   const formSubmit = (e) => {
