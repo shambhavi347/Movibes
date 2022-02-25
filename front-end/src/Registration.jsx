@@ -12,7 +12,7 @@ const Register = () => {
     username: "",
     password: "",
     gender: "male",
-    photo: "",
+    photo: "null",
   });
   let name, value;
   const handleChange = (e) => {
@@ -20,7 +20,7 @@ const Register = () => {
     name = e.target.name;
     if (name === "photo") {
       setPreview(URL.createObjectURL(e.target.files[0]));
-      value = e.target.files[0];
+      value = URL.createObjectURL(e.target.files[0]);
     } else {
       value = e.target.value;
     }
@@ -34,7 +34,7 @@ const Register = () => {
 
   const postData = async (e) => {
     e.preventDefault();
-    const { name, email, age, username, password, gender } = user;
+    const { name, email, age, username, password, gender,photo } = user;
     const res = await fetch("/reg", {
       method: "POST",
       headers: {
@@ -47,7 +47,8 @@ const Register = () => {
         age,
         username,
         password,
-        gender,
+        gender, 
+        photo,
       }),
     });
     const data = await res.json();
