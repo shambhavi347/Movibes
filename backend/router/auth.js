@@ -7,7 +7,7 @@ const User = require("../model/userSchema");
 //registration route
 router.post("/reg", async (req, res) => {
   const { name, email, password, username, gender, age } = req.body;
-  if (!name || !email || !password || !username || !gender || !age) {
+  if (!name || !email || !password || !username || !gender || !age || !photo) {
     return res.status(422).json({
       error: "error  field not filled properly in registration page ",
     });
@@ -25,7 +25,15 @@ router.post("/reg", async (req, res) => {
       return res.status(422).json({ error: "Username is already exist" });
     }
     //for creating collection
-    const user = new User({ name, email, password, username, gender, age });
+    const user = new User({
+      name,
+      email,
+      password,
+      username,
+      gender,
+      age,
+      photo,
+    });
     await user.save();
     res.status(201).json({ message: "user register 👍successfull" });
   } catch (err) {
