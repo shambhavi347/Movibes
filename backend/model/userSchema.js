@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const validator = require('validator');
 const jwt= require('jsonwebtoken');
 
@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
     }
     ]    
 })
-//hashing password
+//hashing password for secure
 userSchema.pre('save', async function(next) {
     if(this.isModified('password')){
          this.password= await bcrypt.hash(this.password, 12);
