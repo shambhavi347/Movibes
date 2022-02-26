@@ -1,9 +1,6 @@
-//import express from 'express';
-
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const express = require("express");
-const bodyParser = require('body-parser');
 const app = express();
 dotenv.config({ path: "./config1.env" });
 
