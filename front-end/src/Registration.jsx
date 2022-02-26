@@ -12,7 +12,7 @@ const Register = () => {
     username: "",
     password: "",
     gender: "male",
-    photo: "null",
+    photo: null,
   });
   let name, value;
   const handleChange = (e) => {

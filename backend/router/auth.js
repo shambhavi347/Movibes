@@ -2,22 +2,13 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const bcrypt=require("bcryptjs");
 const router = express.Router();
-const multer= require('multer');
-const bodyParser = require('body-parser');
+
 require("../db/conn");
 const User = require("../model/userSchema");
 
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, 'public/images')
-  },
-  filename: (req, file, cb) => {
-      cb(null, Date.now()+'_'+ file.originalname)
-  }
-});
-var upload = multer({ storage: storage });
+
 //registration route
-router.post("/reg",upload.single('photo'), async (req, res) => {
+router.post("/reg", async (req, res) => {
 
   const { name, email, password, username, gender, age,photo } = req.body;
   if (!name || !email || !password || !username || !gender || !age) {
