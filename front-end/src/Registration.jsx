@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import profileImg from "./Image/user.jpg";
-import signup from "./Image/sign-up.png";
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
+import validator from "validator";
 const Register = () => {
   const [preview, setPreview] = useState(profileImg);
   const [user, setUser] = useState({
@@ -13,6 +13,10 @@ const Register = () => {
     password: "",
     gender: "male",
     photo: null,
+  });
+  const [email, setEmail] = useState({
+    email: "",
+    username: "",
   });
   let name, value;
   const handleChange = (e) => {
@@ -34,38 +38,44 @@ const Register = () => {
 
   const postData = async (e) => {
     e.preventDefault();
+
     const { name, email, age, username, password, gender, photo } = user;
-    const res = await fetch("/reg", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        age,
-        username,
-        password,
-        gender,
-        photo,
-      }),
-    });
-    const data = await res.json();
-    if (data.status === 422 || !data) {
-      window.alert("Invalid Registration!!");
-      console.log("Invalid Registration");
+    if (validator.isEmail(email) || !user) {
+      const res = await fetch("/reg", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          age,
+          username,
+          password,
+          gender,
+          photo,
+        }),
+      });
+      const data = await res.json();
+      if (data.status === 422 || !data) {
+        window.alert("Invalid Registration!!");
+        console.log("Invalid Registration");
+      } else {
+        window.alert("Successfull Registration!!");
+        console.log("Successfull Registration");
+        routeChange();
+      }
     } else {
-      window.alert("Successfull Registration!!");
-      console.log("Successfull Registration");
-      routeChange();
+      setEmail("Inavlid Email");
+      window.alert("Please Fill the Entire form correctly");
     }
   };
 
   return (
     <div className="body">
       <div className="main">
-        <h1 className="regHead">Registration Yourself</h1>
+        <h1 className="regHead">Register Yourself</h1>
         <p className="loginWelcome">
           Welcome to Movibes! Create an account and follow us on this journey
         </p>
@@ -90,7 +100,9 @@ const Register = () => {
               autoComplete="off"
               onChange={handleChange}
             />
-
+            <label style={{ fontSize: "30", fontWeight: "bold", color: "red" }}>
+              {setEmail}
+            </label>
             <input
               className="form-element"
               type="text"
@@ -170,7 +182,7 @@ const Register = () => {
             </button>
           </form>
           <div className="img">
-            <img className="signupImg" src={signup} alt="signupimg" />
+            {/* <img className="signupImg" src={signup} alt="signupimg" /> */}
           </div>
         </div>
       </div>

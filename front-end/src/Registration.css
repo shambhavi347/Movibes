@@ -123,18 +123,18 @@ input[type="file"]::file-selector-button:hover {
   text-align: center;
   box-shadow: 2px 5px 5px #0f1622;
   display: table;
-  background-color: white;
-  /* background-color: transparent; */
-  width: 70%;
-  height: 70%;
+  /* background-color: white; */
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
   margin: auto;
   border-radius: 15px;
 }
 .form-element {
   justify-content: left;
   display: flex;
-  padding: 20px;
-  padding-left: 0;
+  /* padding: 20px;
+  padding-left: 0; */
   margin: auto;
   margin-top: 20px;
 }
@@ -145,4 +145,77 @@ input[type="file"]::file-selector-button:hover {
 }
 .regHead {
   color: white;
+}
+
+/* set-prefernce css */
+
+div label input {
+  margin-right: 100px;
+}
+
+.movie {
+  margin: 4px;
+  background-color: #104068;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  overflow: hidden;
+  float: left;
+}
+
+.movie label {
+  font-size: medium;
+  float: left;
+  line-height: 3em;
+  width: 8em;
+  height: 3em;
+}
+
+.movie label span {
+  text-align: center;
+  padding: 3px 0;
+  display: block;
+}
+
+.movie label input {
+  position: absolute;
+  display: none;
+  color: #fff !important;
+}
+/* selects all of the text within the input element and changes the color of the text */
+.movie label input + span {
+  color: #fff;
+}
+
+/* This will declare how a selected input will look giving generic properties */
+.movie input:checked + span {
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+}
+
+.action input:checked + span {
+  background-color: #f75a1b;
+}
+.comedy input:checked + span {
+  background-color: #1bb8f7;
+}
+.animated input:checked + span {
+  background-color: #d9d65d;
+}
+.musical input:checked + span {
+  background-color: #82d44e;
+}
+.mystery input:checked + span {
+  background-color: #f3a4cf;
+}
+.thriller input:checked + span {
+  background-color: #8c1b1b;
+}
+.sci-fi input:checked + span {
+  background-color: #ac9bd1;
+}
+.romance input:checked + span {
+  background-color: #f374be;
+}
+.drama input:checked + span {
+  background-color: #ffbe0d;
 }
