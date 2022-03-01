@@ -36,6 +36,7 @@ router.post("/reg", async (req, res) => {
     });
     await user.save();
     res.status(201).json({ message: "user register 👍successfull" });
+    //set-prefernce here
   } catch (err) {
     console.log(err);
   }
