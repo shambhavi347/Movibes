@@ -21,7 +21,7 @@ const SetPreference = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (e.target.checked > 5) {
+    if (e.target.checked < 5) {
       window.alert("Select minimum 5 ");
     } else {
       window.alert("good to go  ");
@@ -99,16 +99,16 @@ const SetPreference = () => {
                 </label>
               </div>
 
-              <div class="movie mystrey">
+              <div class="movie mystery">
                 <label>
                   <input
                     type="checkbox"
-                    name="mystrey"
+                    name="mystery"
                     value="1"
                     checked={prefernce.mystery === "1"}
                     onChange={handleChange}
                   />
-                  <span>Mystrey</span>
+                  <span>Mystery</span>
                 </label>
               </div>
               <div class="movie romance">

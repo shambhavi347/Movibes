@@ -204,7 +204,7 @@ div label input {
 .musical input:checked + span {
   background-color: #82d44e;
 }
-.mystrey input:checked + span {
+.mystery input:checked + span {
   background-color: #f3a4cf;
 }
 .thriller input:checked + span {
@@ -214,8 +214,8 @@ div label input {
   background-color: #ac9bd1;
 }
 .romance input:checked + span {
-  background-color: #214a09;
+  background-color: #f374be;
 }
 .drama input:checked + span {
-  background-color: #f374be;
+  background-color: #ffbe0d;
 }
