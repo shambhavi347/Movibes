@@ -152,19 +152,41 @@ input[type="file"]::file-selector-button:hover {
 div label input {
   margin-right: 100px;
 }
-
-.movie {
-  margin: 4px;
-  background-color: #104068;
-  border-radius: 8px;
-  border: 1px solid #fff;
+#genere {
   overflow: hidden;
+  margin: 57px 0;
+  margin-left: 25%;
+  height: auto;
+  width: 50%;
+  padding-left: 80px;
+}
+#mbtn {
+  margin-left: -70px;
+}
+#mHead {
+  font-size: 60px;
+}
+.movie {
+  margin: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #104068;
+  border-color: #0f1622;
+  border-radius: 8px;
+  /* border: 1px solid rgb(14, 13, 13); //see here  */
+  overflow: hidden;
+  width: 8em;
+}
+.movie1,
+.movie2,
+.movie3 {
   float: left;
+  margin: auto;
+  padding: 10px;
+  align-items: center;
 }
 
 .movie label {
-  font-size: medium;
-  float: left;
   line-height: 3em;
   width: 8em;
   height: 3em;
@@ -184,38 +206,41 @@ div label input {
 /* selects all of the text within the input element and changes the color of the text */
 .movie label input + span {
   color: #fff;
+  border-color: #0f1622;
 }
 
 /* This will declare how a selected input will look giving generic properties */
 .movie input:checked + span {
-  color: #ffffff;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+  border-color: #0f1622;
+  color: #1d1b1b;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 .action input:checked + span {
-  background-color: #f75a1b;
+  background-color: #ffadad;
 }
 .comedy input:checked + span {
-  background-color: #1bb8f7;
+  background-color: #ffd6a5;
 }
 .animated input:checked + span {
-  background-color: #d9d65d;
+  background-color: #fdffb6;
 }
 .musical input:checked + span {
-  background-color: #82d44e;
+  background-color: #caffbf;
 }
 .mystery input:checked + span {
-  background-color: #f3a4cf;
+  background-color: #9bf6ff;
 }
 .thriller input:checked + span {
-  background-color: #8c1b1b;
+  background-color: #a0c4ff;
 }
 .sci-fi input:checked + span {
-  background-color: #ac9bd1;
+  background-color: #bdb2ff;
 }
 .romance input:checked + span {
-  background-color: #f374be;
+  background-color: #ffc6ff;
 }
 .drama input:checked + span {
-  background-color: #ffbe0d;
+  background-color: #cddafd;
 }

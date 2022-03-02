@@ -81,7 +81,6 @@ const Register = () => {
         </p>
         <div className="regBox">
           <form method="POST" className="regForm">
-            {/* onSubmit={formSubmit}> */}
             <input
               className="form-element"
               type="text"
