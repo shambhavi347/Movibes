@@ -3,9 +3,8 @@ const validator = require("validator");
 const User = require("../model/userSchema");
 
 const preferenceSchema = new mongoose.Schema({
-  id1: {
-    type: new mongoose.Schema.Types.ObjectId(),
-    // type: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
   drama: {

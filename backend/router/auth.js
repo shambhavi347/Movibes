@@ -122,10 +122,11 @@ router.post("/set-preference", async (req, res) => {
   }
   if (count < 5) {
     return res.status(422).json({ message: "select minimum five genre" });
-  } else {
+  }
+  try {
     //for creating collection
     const preference = new Preference({
-      id1: id,
+      userId: new id(),
       drama,
       romance,
       action,
@@ -138,6 +139,8 @@ router.post("/set-preference", async (req, res) => {
     });
     await preference.save();
     res.status(201).json({ message: "preference saved successfully!" });
+  } catch (err) {
+    console.log(err);
   }
 });
 module.exports = router;

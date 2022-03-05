@@ -160,8 +160,7 @@ const Register = () => {
             </div>
             <div className="img-holder">
               <img
-                className="form-element"
-                className="userImg"
+                className="form-element userImg"
                 src={preview}
                 alt="userimg"
                 id="customFile"
@@ -176,7 +175,7 @@ const Register = () => {
                 onChange={handleChange}
               />
             </div>
-            <button className="form-element" className="btn" onClick={postData}>
+            <button className="form-element btn" onClick={postData}>
               Submit
             </button>
           </form>
