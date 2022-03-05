@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
-const User = require("../model/userSchema");
 
 const preferenceSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  id_user: {
+    type: String,
   },
   drama: {
     type: Number,
@@ -39,7 +36,7 @@ const preferenceSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  animation: {
+  animated: {
     type: Number,
     default: 0,
   },
