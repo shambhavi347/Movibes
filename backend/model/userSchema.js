@@ -7,12 +7,12 @@ const jwt = require("jsonwebtoken");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   email: {
     type: String,
     unique: true,
-    require: true,
+    required: true,
     validator(value) {
       if (!validator.isEmail(value)) {
         throw new Error("email is invalid ");
@@ -21,21 +21,21 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   username: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   gender: {
     type: String,
     enum: ["male", "female", "others"],
-    require: true,
+    required: true,
   },
   age: {
     type: Number,
-    require: true,
+    required: true,
   },
   photo: {
     type: String,
@@ -44,10 +44,10 @@ const userSchema = new mongoose.Schema({
     {
       token: {
         type: String,
-        require: true,
-      },
-    },
-  ],
+        required: true,
+      }
+    }
+  ]
 });
 //hashing password
 userSchema.pre('save', async function(next) {
@@ -56,17 +56,18 @@ userSchema.pre('save', async function(next) {
   }
   next();
 });
+
 //generating token
 userSchema.methods.generateAuthToken = async function () {
   try {
-    let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY);
+    let token = jwt.sign({ _id:this._id}, process.env.SECRET_KEY);
     this.tokens = this.tokens.concat({ token: token });
     await this.save();
     return token;
   } catch (err) {
-    console.log(err);
+      console.log(err);  
   }
 };
-const User = mongoose.model("USER", userSchema);
 
+const User = mongoose.model("USER", userSchema);
 module.exports = User;

@@ -2,14 +2,18 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-require("../db/conn");
+const authenticate = require("../middleware/authenticate");
+
+require("../db/conn"); 
 const User = require("../model/userSchema");
 const Preference = require("../model/preferenceSchema");
+const Friend = require("../model/friendSchema");
 
-var id;
+var id=0;
 //registration route
 router.post("/reg", async (req, res) => {
-  const { name, email, password, username, gender, age, photo } = req.body;
+  
+  const { name, email, password, username, gender, age, photo} = req.body;
   if (!name || !email || !password || !username || !gender || !age) {
     return res.status(422).json({
       error: "error  field not filled properly in registration page ",
@@ -25,9 +29,11 @@ router.post("/reg", async (req, res) => {
     const userName_Exist = await User.findOne({ username: username });
 
     if (userName_Exist) {
+    
       return res.status(422).json({ error: "Username is already exist" });
+      
     }
-    //for creating collection
+   // for creating collection
     const user = new User({
       name,
       email,
@@ -39,7 +45,7 @@ router.post("/reg", async (req, res) => {
     });
 
     await user.save();
-    //console.log(`${user}`);
+    
     id = user._id;
 
     res.status(201).json({ message: "user register 👍successfull" });
@@ -55,11 +61,12 @@ router.post("/", async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
       return res
-        .status(422)
+        .status(400)
         .json({ error: "error  field not filled properly in login page " });
     }
     const userLogin = await User.findOne({ username: username });
-    if (userLogin) {
+   
+     if (userLogin) {
       const isMatch = await bcrypt.compare(password, userLogin.password);
       token = await userLogin.generateAuthToken();
       res.cookie("jwtoken", token, {
@@ -89,7 +96,7 @@ router.post("/set-preference", async (req, res) => {
     sci_fi,
     comedy,
     musical,
-    animation,
+    animated,
     mystery,
   } = req.body;
   var count = 0;
@@ -114,18 +121,22 @@ router.post("/set-preference", async (req, res) => {
   if (musical == 1) {
     count++;
   }
-  if (animation == 1) {
+  if (animated == 1) {
     count++;
   }
   if (mystery == 1) {
     count++;
+  }
+  if(id==0)
+  {
+    return res.status(422).json({ message: "unauthorized person"});
   }
   if (count < 5) {
     return res.status(422).json({ message: "select minimum five genre" });
   } else {
     //for creating collection
     const preference = new Preference({
-      id1: id,
+      id_user: id,
       drama,
       romance,
       action,
@@ -133,11 +144,26 @@ router.post("/set-preference", async (req, res) => {
       sci_fi,
       comedy,
       musical,
-      animation,
+      animated,
       mystery,
     });
     await preference.save();
+    id=0;
     res.status(201).json({ message: "preference saved successfully!" });
   }
 });
+
+//home page
+router.get("/home-page ", authenticate,  (req, res) => {
+  console.log("hello home page");
+  res.send(req.rootUser);
+});
+
+//logout page
+router.get("/logout", (req,res)=>{
+
+  res.clearCookie('jwtoken',{ path:'/'});
+  res.status(200).send('User logout');
+})
+
 module.exports = router;
