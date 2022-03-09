@@ -23,7 +23,6 @@
   background-color: #f2f4f4;
   background-image: url("./Image/bckgrndLogin1.jpg");
   background-attachment: fixed;
-  background: position auto;
   align-content: center;
   background-size: cover;
 }
@@ -83,6 +82,7 @@ input[type="file"]::file-selector-button:hover {
   opacity: 0.8;
 }
 .btn {
+  text-align: center;
   border-radius: 20px;
   border: 0;
   height: 60px;
@@ -121,7 +121,7 @@ input[type="file"]::file-selector-button:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 2px 5px 5px #0f1622;
+  /* box-shadow: 2px 5px 5px #0f1622; */
   display: table;
   /* background-color: white; */
   background-color: transparent;

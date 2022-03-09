@@ -1,4 +1,5 @@
 import React from "react";
+import NavBar1 from "./NavBar1";
 const Style = {
   textAlign: "center",
   margin: "auto",
@@ -12,9 +13,12 @@ const Style = {
 };
 const Error = () => {
   return (
-    <div style={Style}>
-      <h1 style={({ opacity: "0.7" }, { padding: 30 })}> 404 | NOT FOUND</h1>
-    </div>
+    <>
+      <NavBar1 />
+      <div style={Style}>
+        <h1 style={({ opacity: "0.7" }, { padding: 30 })}> 404 | NOT FOUND</h1>
+      </div>
+    </>
   );
 };
 

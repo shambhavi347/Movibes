@@ -2,20 +2,19 @@
 import React, { useState } from "react";
 import signin from "./Image/sign-in.png";
 import { useNavigate } from "react-router-dom";
-import NavBar2 from "./NavBar2";
+import NavBar1 from "./NavBar1";
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   let navigate = useNavigate();
   const routeChange = () => {
     let path = "/home-page";
-    <NavBar2 />;
     navigate(path);
   };
-  const postData = async (e) =>{
+  const postData = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('/', {
+    const res = await fetch("/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,19 +24,16 @@ const Login = () => {
         username,
         password,
       }),
-  });
-  const data = await res.json();
-  if (data.status === 400 || !data) {
-    window.alert("Invalid Login!!");
-    console.log("Invalid Login");
-  }  
-  else
-  {
-    window.alert("Successfull Login!!");
-    console.log("Successfull Login");
-    routeChange();
-  }
-
+    });
+    const data = await res.json();
+    if (data.status === 400 || !data) {
+      window.alert("Invalid Login!!");
+      console.log("Invalid Login");
+    } else {
+      window.alert("Successfull Login!!");
+      console.log("Successfull Login");
+      routeChange();
+    }
   };
   // const formSubmit = (e) => {
   //   e.preventDefault();
@@ -45,6 +41,7 @@ const Login = () => {
   // };
   return (
     <>
+      <NavBar1 />
       <div className="body">
         <div className="main" id="main">
           <h1 className="regHead">Login</h1>
@@ -52,9 +49,8 @@ const Login = () => {
             Welcome! Login to your account and get started
           </p>
           <div className="regBox">
-          <form method="POST" className="regForm">
-            
-              <input                
+            <form method="POST" className="regForm">
+              <input
                 className="form-element"
                 placeholder="Username..."
                 type="text"
@@ -64,7 +60,7 @@ const Login = () => {
                 autoComplete="off"
                 onChange={(e) => setUsername(e.target.value)}
               />
-              <input   
+              <input
                 className="form-element"
                 placeholder="Password..."
                 type="password"
@@ -74,7 +70,7 @@ const Login = () => {
                 autoComplete="off"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <button className="form-element" className="btn" onClick={postData}>
+              <button className=" btn" onClick={postData}>
                 Login
               </button>
             </form>

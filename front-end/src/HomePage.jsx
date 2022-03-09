@@ -1,16 +1,11 @@
 import React from "react";
-
+import NavBar2 from "./NavBar2";
 const HomePage = () => {
   return (
-    <h1>
-      <br />
-      <br />
-      <br />
-      Home Page
-      <br />
-      <br />
-      <br />
-    </h1>
+    <>
+      <NavBar2 />
+      <div className="body">Home Page</div>
+    </>
   );
 };
 
