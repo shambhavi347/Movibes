@@ -1,6 +1,6 @@
 //import React from "react";
 import React, { useState } from "react";
-import signin from "./Image/sign-in.png";
+import { signin } from "./Image/Images";
 import { useNavigate } from "react-router-dom";
 import NavBar1 from "./NavBar1";
 const Login = () => {

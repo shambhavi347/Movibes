@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { logo } from "./Image/Images";
 
 var Style = {
   position: "fixed",
@@ -17,10 +18,17 @@ var textStyle = {
   fontSize: 22,
   color: "white",
 };
+var logoStyle = {
+  padding: 0,
+  margin: 0,
+  float: "left",
+  width: "10%",
+};
 const NavBar1 = () => {
   return (
     <div className="container" style={Style}>
       <nav>
+        <img className="logo" src={logo} alt="Website Logo" style={logoStyle} />
         <Link to="/" style={textStyle}>
           Login
         </Link>

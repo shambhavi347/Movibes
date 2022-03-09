@@ -1,0 +1,16 @@
+.Main {
+  width: 100%;
+  height: 100%;
+  padding: 60px;
+  background-color: #f2f4f4;
+  background-attachment: fixed;
+  align-content: center;
+  background-size: cover;
+}
+
+.Body {
+  padding-top: 2vh;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}

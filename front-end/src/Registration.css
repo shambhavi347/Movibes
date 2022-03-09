@@ -21,7 +21,7 @@
   height: 100%;
   padding: 60px;
   background-color: #f2f4f4;
-  background-image: url("./Image/bckgrndLogin1.jpg");
+  background-image: url("./Image/bckgrndLogin.jpg");
   background-attachment: fixed;
   align-content: center;
   background-size: cover;
@@ -40,6 +40,7 @@
   border-radius: 50%;
   background-color: transparent;
   opacity: 0.8;
+  object-fit: cover;
 }
 input[type="text"],
 input[type="password"],

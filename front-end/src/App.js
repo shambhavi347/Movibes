@@ -13,7 +13,6 @@ const App = (props) => {
   return (
     <>
       <Router>
-        {/* {props.userloggedIn ? <NavBar2 /> : <NavBar1 />} */}
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route path="/reg" element={<Register />} />
