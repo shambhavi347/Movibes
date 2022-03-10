@@ -1,16 +1,79 @@
-.Main {
-  width: 100%;
-  height: 100%;
-  padding: 60px;
+.Body {
+  padding-top: 8vh;
+  height: 100vh;
   background-color: #f2f4f4;
+  display: flex;
+}
+.chatMenu {
+  flex: 3.5;
+}
+.menuInput {
+  padding: 10px 0;
+  width: 90%;
+  border: none;
+  border-bottom: 1px solid gray;
+  padding-left: 10px;
+  background-color: #f2f4f4;
+}
+.chatMain {
+  flex: 5.5;
+  background-image: url("./Image/chatBckgrnd.jpg");
   background-attachment: fixed;
-  align-content: center;
-  background-size: cover;
+}
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.chatTop {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+.chatTop::-webkit-scrollbar {
+  width: 5px;
+}
+.chatTop::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.chatTop::-webkit-scrollbar-thumb {
+  background-color: #405f94;
+  border-radius: 10px;
+}
+.chatBottom {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chatInput {
+  width: 80%;
+  height: 90px;
+  padding: 10px;
+  border-radius: 20px;
+  overflow-y: auto;
+}
+.chatInput::-webkit-scrollbar {
+  display: none;
+}
+.chatSend {
+  width: 70px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #213455;
+  color: white;
+}
+.friendsOnline {
+  flex: 3;
 }
 
-.Body {
-  padding-top: 2vh;
-  margin: 0;
+.mainWrapper,
+.menuWrapper,
+.onlineWrapper {
+  padding: 10px;
   height: 100%;
-  overflow: hidden;
 }
