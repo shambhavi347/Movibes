@@ -3,11 +3,16 @@
   align-items: center;
   padding: 10px;
   cursor: pointer;
-  background-color: #f2f4f4;
+  background-color: #7893b2;
   margin-top: 20px;
+  color: white;
+  border-radius: 20px;
+  border: 1px solid black;
 }
 .Conversation:hover {
-  background-color: rgb(228, 235, 235);
+  background-color: #32609c;
+  color: white;
+  border-radius: 20px;
 }
 .convImage {
   width: 40px;

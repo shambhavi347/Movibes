@@ -10,7 +10,7 @@ const HomePage = () => {
       <div className="Body">
         <div className="chatMenu">
           <div className="menuWrapper">
-            <input placeholder="Search for friends" className="menuInput" />
+            <input placeholder="Search for friends..." className="menuInput" />
             <Conversation />
             <Conversation />
             <Conversation />
@@ -41,9 +41,6 @@ const HomePage = () => {
               <button className="  chatSend">Send</button>
             </div>
           </div>
-        </div>
-        <div className="friendsOnline">
-          <div className="onlineWrapper">Online</div>
         </div>
       </div>
     </>

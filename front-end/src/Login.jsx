@@ -35,10 +35,6 @@ const Login = () => {
       routeChange();
     }
   };
-  // const formSubmit = (e) => {
-  //   e.preventDefault();
-  //   routeChange();
-  // };
   return (
     <>
       <NavBar1 />

@@ -1,19 +1,23 @@
 .Body {
   padding-top: 8vh;
   height: 100vh;
-  background-color: #f2f4f4;
+
   display: flex;
 }
 .chatMenu {
-  flex: 3.5;
+  flex: 2.3;
+  background-color: #c8d5e4;
 }
 .menuInput {
   padding: 10px 0;
   width: 90%;
   border: none;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #32609c;
   padding-left: 10px;
-  background-color: #f2f4f4;
+  background-color: #c8d5e4;
+}
+.menuWrapper {
+  border-right: 1px solid rgb(15, 22, 34, 0.7);
 }
 .chatMain {
   flex: 5.5;
@@ -28,15 +32,14 @@
 }
 .chatTop {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-right: 10px;
 }
 .chatTop::-webkit-scrollbar {
   width: 5px;
 }
 .chatTop::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
+  background: transparent;
 }
 .chatTop::-webkit-scrollbar-thumb {
   background-color: #405f94;
@@ -67,13 +70,9 @@
   background-color: #213455;
   color: white;
 }
-.friendsOnline {
-  flex: 3;
-}
 
 .mainWrapper,
-.menuWrapper,
-.onlineWrapper {
+.menuWrapper {
   padding: 10px;
   height: 100%;
 }
