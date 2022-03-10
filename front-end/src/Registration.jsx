@@ -15,10 +15,7 @@ const Register = () => {
     gender: "male",
     photo: null,
   });
-  const [email, setEmail] = useState({
-    email: "",
-    username: "",
-  });
+  const [err, setErr] = useState(false);
   let name, value;
   const handleChange = (e) => {
     console.log(e);
@@ -68,8 +65,8 @@ const Register = () => {
         routeChange();
       }
     } else {
-      setEmail("Inavlid Email");
-      window.alert("Please Fill the Entire form correctly");
+      setErr(true);
+      // window.alert("Please Fill the Entire form correctly");
     }
   };
 
@@ -94,7 +91,7 @@ const Register = () => {
                 onChange={handleChange}
               />
               <input
-                className="form-element"
+                className={err ? "form-element err" : "form-element"}
                 type="email"
                 name="email"
                 placeholder="Email..."
@@ -102,11 +99,7 @@ const Register = () => {
                 autoComplete="off"
                 onChange={handleChange}
               />
-              <label
-                style={{ fontSize: "30", fontWeight: "bold", color: "red" }}
-              >
-                {setEmail}
-              </label>
+              {/* <span style={{ fontSize: "30", color: "red" }}>{email}</span> */}
               <input
                 className="form-element"
                 type="text"
