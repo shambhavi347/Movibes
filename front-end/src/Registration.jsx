@@ -3,6 +3,7 @@ import profileImg from "./Image/user.jpg";
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
+import { validEmail, validPassword } from "./Components/Regex";
 import NavBar1 from "./NavBar1";
 const Register = () => {
   const [preview, setPreview] = useState(profileImg);
@@ -15,7 +16,7 @@ const Register = () => {
     gender: "male",
     photo: null,
   });
-  const [err, setErr] = useState(false);
+  const [err, setErr] = useState("");
   let name, value;
   const handleChange = (e) => {
     console.log(e);
@@ -38,7 +39,7 @@ const Register = () => {
     e.preventDefault();
 
     const { name, email, age, username, password, gender, photo } = user;
-    if (validator.isEmail(email) || !user) {
+    if (validEmail.test(email) || !user || validPassword.test(password)) {
       const res = await fetch("/reg", {
         method: "POST",
         headers: {
@@ -65,8 +66,8 @@ const Register = () => {
         routeChange();
       }
     } else {
-      setErr(true);
-      // window.alert("Please Fill the Entire form correctly");
+      setErr("Please Fill the entire form correctly");
+      // window.alert();
     }
   };
 
@@ -91,7 +92,7 @@ const Register = () => {
                 onChange={handleChange}
               />
               <input
-                className={err ? "form-element err" : "form-element"}
+                className="form-element"
                 type="email"
                 name="email"
                 placeholder="Email..."
@@ -99,14 +100,12 @@ const Register = () => {
                 autoComplete="off"
                 onChange={handleChange}
               />
-              {/* <span style={{ fontSize: "30", color: "red" }}>{email}</span> */}
               <input
                 className="form-element"
                 type="text"
                 name="age"
                 value={user.age}
                 placeholder="Age..."
-                id=""
                 onChange={handleChange}
               />
               <input
@@ -115,7 +114,6 @@ const Register = () => {
                 name="username"
                 value={user.username}
                 placeholder="Username..."
-                id=""
                 autoComplete="off"
                 onChange={handleChange}
               />
@@ -125,11 +123,9 @@ const Register = () => {
                 name="password"
                 value={user.password}
                 placeholder="Password..."
-                id=""
                 autoComplete="off"
                 onChange={handleChange}
               />
-
               <div className="radioGroup">
                 <input
                   type="radio"
@@ -175,7 +171,9 @@ const Register = () => {
               </div>
               <button className=" btn" onClick={postData}>
                 Submit
-              </button>
+              </button>{" "}
+              <br />
+              <span style={{ fontSize: "30", color: "red" }}>{err}</span>
             </form>
             <div className="img">
               {/* <img className="signupImg" src={signup} alt="signupimg" /> */}

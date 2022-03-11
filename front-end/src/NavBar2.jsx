@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { logo, logout } from "./Image/Images";
+
 var Style = {
   position: "fixed",
   boxShadow: "2px 3px 5px #0f1622",
