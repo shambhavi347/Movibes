@@ -8,6 +8,7 @@ import Message from "./Components/Message/Message";
 import { getFriends } from "./Service/api";
 
 const HomePage = () => {
+  const [friends, setFriends] = useState([]);
   const navigate = useNavigate();
   const [userData, setUserdata] = useState();
   const callHome = async () => {
@@ -36,9 +37,9 @@ const HomePage = () => {
   useEffect(() => {
     callHome();
     const fetchData = async () => {
-      const user = await getFriends();
-      console.log("get friends");
-      console.log(user);
+      const data = await getFriends();
+      setFriends(data);
+      console.log(friends);
     };
     fetchData();
   }, []);
@@ -49,10 +50,13 @@ const HomePage = () => {
         <div className="chatMenu">
           <div className="menuWrapper">
             <input placeholder="Search for friends..." className="menuInput" />
+            {friends.map((friend) => (
+              <Conversation user={friend} />
+            ))}
+            {/* <Conversation />
             <Conversation />
             <Conversation />
-            <Conversation />
-            <Conversation />
+            <Conversation /> */}
           </div>
         </div>
         <div className="chatMain">

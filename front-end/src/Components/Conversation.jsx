@@ -1,7 +1,7 @@
 import React from "react";
 import "./Converstaions.css";
 
-const Conversation = () => {
+const Conversation = ({ user }) => {
   return (
     <div className="Conversation">
       <img
@@ -9,7 +9,7 @@ const Conversation = () => {
         alt="profilePic"
         className="convImage"
       />
-      <span className="convText">John Doe</span>
+      <span className="convText">{user.username}</span>
     </div>
   );
 };

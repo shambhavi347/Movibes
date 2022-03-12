@@ -5,9 +5,7 @@ import axios from "axios";
 export const getFriends = async () => {
   try {
     let respone = await axios.get("/get-friends");
-    console.log("hi axios");
-    console.log(respone);
-    return respone;
+    return respone.data;
   } catch (error) {
     console.log("error ", error);
   }

@@ -154,45 +154,30 @@ router.post("/set-preference", async (req, res) => {
 });
 
 //home page
-router.get("/home-page", authenticate, (req, res) => {
+router.get("/home-page", authenticate, async (req, res) => {
   console.log("hello home page");
+  console.log(req.rootUser._id);
   res.send(req.rootUser);
 });
 
 //get Friends
 router.get("/get-friends", authenticate, async (req, res) => {
   console.log("hello friend page");
-  // console.log(req.rootUser._id);
-  // const id = ;
-  // res.send(id);
 
   const friends = await Friend.find({
-    id_user: req.rootUser._id,
+    $and: [
+      {
+        id_user: req.rootUser._id,
+      },
+      {
+        status: "accepted",
+      },
+    ],
   });
+  friends.map((friend) => console.log(friend.id_friend));
   console.log(friends);
   res.send(friends);
 });
-
-// router.get("/get-friends", ,async (req, res) => {
-//   try {
-//     console.log(req.rootUser._id);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
-// try {
-//   console.log("HI FRIENDS");
-//   console.log(req.rootUser._id);
-//   const friends = await Friend.find(
-//     {
-//       id_user: id,
-//     },
-//     { status: "accepted" }
-//   );
-//   res.send(friends);
-// } catch (error) {
-//   res.status(500).json(error);
-// }
 
 //logout page
 router.get("/logout", (req, res) => {

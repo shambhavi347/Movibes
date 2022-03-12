@@ -4,13 +4,11 @@ const Preference = require("../model/preferenceSchema");
 
 const friendSchema = new mongoose.Schema({
   id_user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
   },
 
   id_friend: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Preference",
+    type: String,
   },
   status: {
     type: String,
