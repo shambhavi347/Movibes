@@ -59,7 +59,7 @@ router.post("/", async (req, res) => {
     if (!username || !password) {
       return res
         .status(400)
-        .json({ error: "error  field not filled properly in login page " });
+        .json({ error: "Field not filled properly in login page " });
     }
     const userLogin = await User.findOne({ username: username });
 
@@ -71,12 +71,12 @@ router.post("/", async (req, res) => {
         httpOnly: true,
       });
       if (!isMatch) {
-        res.status(400).json({ error: "invalid credientials" });
+        res.status(400).json({ error: "Incorrect Password" });
       } else {
-        res.json({ message: "user login  👍successfully" });
+        res.status(200).json({ message: "User login  👍successfully" });
       }
     } else {
-      res.status(400).json({ error: "invalid credientials" });
+      res.status(400).json({ error: "Invalid Credientials" });
     }
   } catch (err) {
     console.log(err);
@@ -153,7 +153,7 @@ router.post("/set-preference", async (req, res) => {
 });
 
 //home page
-router.get("/home-page ", authenticate, (req, res) => {
+router.get("/home-page", authenticate, (req, res) => {
   console.log("hello home page");
   res.send(req.rootUser);
 });

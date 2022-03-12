@@ -56,10 +56,10 @@ const Register = () => {
           photo,
         }),
       });
-      const data = await res.json();
-      if (data.status === 422 || !data) {
-        window.alert("Invalid Registration!!");
-        console.log("Invalid Registration");
+      const reason = await res.json();
+      console.log(reason.error);
+      if (res.status === 422) {
+        window.alert(reason.error);
       } else {
         window.alert("Successfull Registration!!");
         console.log("Successfull Registration");
@@ -67,7 +67,6 @@ const Register = () => {
       }
     } else {
       setErr("Please Fill the entire form correctly");
-      // window.alert();
     }
   };
 

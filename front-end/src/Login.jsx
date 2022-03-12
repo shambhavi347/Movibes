@@ -6,6 +6,7 @@ import NavBar1 from "./NavBar1";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   let navigate = useNavigate();
   const routeChange = () => {
     let path = "/home-page";
@@ -13,7 +14,6 @@ const Login = () => {
   };
   const postData = async (e) => {
     e.preventDefault();
-
     const res = await fetch("/", {
       method: "POST",
       headers: {
@@ -25,16 +25,17 @@ const Login = () => {
         password,
       }),
     });
-    const data = await res.json();
-    if (data.status === 400 || !data) {
-      window.alert("Invalid Login!!");
-      console.log("Invalid Login");
+    const reason = await res.json();
+    console.log(reason.error);
+
+    if (res.status === 400) {
+      window.alert(reason.error);
     } else {
-      window.alert("Successfull Login!!");
       console.log("Successfull Login");
       routeChange();
     }
   };
+
   return (
     <>
       <NavBar1 />

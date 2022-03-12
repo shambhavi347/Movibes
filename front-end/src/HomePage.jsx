@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar2 from "./NavBar2";
 import "./Home.css";
 import Conversation from "./Components/Conversation";
+import { useNavigate } from "react-router-dom";
+// import axios from "axios";
 import Message from "./Components/Message/Message";
 const HomePage = () => {
+  const navigate = useNavigate();
+  const [userData, setUserdata] = useState({});
+  const callHome = async () => {
+    try {
+      const res = await fetch("/home-page", {
+        method: "GET",
+        headers: {
+          "Content-Type": "appllication/json",
+          Accept: "application/json",
+        },
+        Credential: "include ",
+      });
+      const data = await res.json();
+
+      setUserdata(data);
+      if (!res.status === 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
+    } catch (err) {
+      console.log(err);
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    callHome();
+  }, []);
   return (
     <>
       <NavBar2 />
