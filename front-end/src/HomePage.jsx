@@ -5,9 +5,11 @@ import Conversation from "./Components/Conversation";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import Message from "./Components/Message/Message";
+import { getFriends } from "./Service/api";
+
 const HomePage = () => {
   const navigate = useNavigate();
-  const [userData, setUserdata] = useState({});
+  const [userData, setUserdata] = useState();
   const callHome = async () => {
     try {
       const res = await fetch("/home-page", {
@@ -19,8 +21,9 @@ const HomePage = () => {
         Credential: "include ",
       });
       const data = await res.json();
-
+      console.log(data);
       setUserdata(data);
+      // console.log(userData.name);
       if (!res.status === 200) {
         const error = new Error(res.error);
         throw error;
@@ -32,6 +35,12 @@ const HomePage = () => {
   };
   useEffect(() => {
     callHome();
+    const fetchData = async () => {
+      const user = await getFriends();
+      console.log("get friends");
+      console.log(user);
+    };
+    fetchData();
   }, []);
   return (
     <>

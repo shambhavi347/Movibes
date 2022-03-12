@@ -6,6 +6,12 @@ const express = require("express");
 const cookieparser = require("cookie-parser");
 
 const app = express();
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(cookieparser());
 dotenv.config({ path: "./config1.env" });
 

@@ -12,6 +12,10 @@ const friendSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Preference",
   },
+  status: {
+    type: String,
+    enum: ["accepted", "pending"],
+  },
 });
 
 const Friend = mongoose.model("FRIEND", friendSchema);

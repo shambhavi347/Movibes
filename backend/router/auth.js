@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authenticate");
 
 require("../db/conn");
+
 const User = require("../model/userSchema");
 const Preference = require("../model/preferenceSchema");
 const Friend = require("../model/friendSchema");
@@ -157,6 +158,41 @@ router.get("/home-page", authenticate, (req, res) => {
   console.log("hello home page");
   res.send(req.rootUser);
 });
+
+//get Friends
+router.get("/get-friends", authenticate, async (req, res) => {
+  console.log("hello friend page");
+  // console.log(req.rootUser._id);
+  // const id = ;
+  // res.send(id);
+
+  const friends = await Friend.find({
+    id_user: req.rootUser._id,
+  });
+  console.log(friends);
+  res.send(friends);
+});
+
+// router.get("/get-friends", ,async (req, res) => {
+//   try {
+//     console.log(req.rootUser._id);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// });
+// try {
+//   console.log("HI FRIENDS");
+//   console.log(req.rootUser._id);
+//   const friends = await Friend.find(
+//     {
+//       id_user: id,
+//     },
+//     { status: "accepted" }
+//   );
+//   res.send(friends);
+// } catch (error) {
+//   res.status(500).json(error);
+// }
 
 //logout page
 router.get("/logout", (req, res) => {
