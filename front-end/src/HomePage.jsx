@@ -53,10 +53,6 @@ const HomePage = () => {
             {friends.map((friend) => (
               <Conversation user={friend} />
             ))}
-            {/* <Conversation />
-            <Conversation />
-            <Conversation />
-            <Conversation /> */}
           </div>
         </div>
         <div className="chatMain">

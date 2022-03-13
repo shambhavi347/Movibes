@@ -164,7 +164,8 @@ router.get("/home-page", authenticate, async (req, res) => {
 router.get("/get-friends", authenticate, async (req, res) => {
   console.log("hello friend page");
 
-  const friends = await Friend.find({
+  var friendID = [];
+  Friend.find({
     $and: [
       {
         id_user: req.rootUser._id,
@@ -173,10 +174,25 @@ router.get("/get-friends", authenticate, async (req, res) => {
         status: "accepted",
       },
     ],
-  });
-  friends.map((friend) => console.log(friend.id_friend));
-  console.log(friends);
-  res.send(friends);
+  })
+    .then((data) => {
+      console.log("Friends found ");
+
+      data.map((d, k) => {
+        friendID.push(d.id_friend);
+      });
+
+      User.find({ _id: { $in: friendID } })
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 //logout page
