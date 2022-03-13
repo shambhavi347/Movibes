@@ -58,6 +58,7 @@
   padding: 10px;
   border-radius: 20px;
   overflow-y: auto;
+  color: black;
 }
 .chatInput::-webkit-scrollbar {
   display: none;

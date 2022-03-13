@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import profileImg from "./Image/user.jpg";
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
-import validator from "validator";
 import { validEmail, validPassword } from "./Components/Regex";
 import NavBar1 from "./NavBar1";
 const Register = () => {

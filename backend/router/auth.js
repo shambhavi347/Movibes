@@ -9,6 +9,8 @@ require("../db/conn");
 const User = require("../model/userSchema");
 const Preference = require("../model/preferenceSchema");
 const Friend = require("../model/friendSchema");
+const Conversation = require("../model/conversationSchema");
+const Message = require("../model/message");
 
 var id = 0;
 //registration route
@@ -161,7 +163,7 @@ router.get("/home-page", authenticate, async (req, res) => {
 });
 
 //get Friends
-router.get("/get-friends", authenticate, async (req, res) => {
+router.get("/get-friends", authenticate, (req, res) => {
   console.log("hello friend page");
 
   var friendID = [];
@@ -193,6 +195,77 @@ router.get("/get-friends", authenticate, async (req, res) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+// //chat
+router.post("/conversation", authenticate, async (req, res) => {
+  let senderID = req.body.senderID;
+  let receiverID = req.body.receiverID;
+  const exist = await Conversation.findOne({
+    members: { $all: [receiverID, senderID] },
+  });
+
+  if (exist) {
+    res.status(200).json("conversation already exists");
+    return;
+  }
+  const newConversation = new Conversation({
+    members: [senderID, receiverID],
+  });
+  try {
+    const savedConversation = await newConversation.save();
+    res.status(200).json(savedConversation);
+  } catch (error) {
+    res.status(422).json(error);
+  }
+});
+
+//get conv
+router.get("/conversation", async (req, res) => {
+  try {
+    const conversation = await Conversation.find({
+      memebers: { $in: [req.rootUser._id] },
+    });
+    res.json(conversation);
+  } catch (error) {
+    res.status(500).json(err);
+  }
+});
+
+//add messages
+router.post("/messages", authenticate, async (req, res) => {
+  const newMsg = new Message(req.body);
+  try {
+    const savedMsg = await newMsg.save();
+    res.status(200).json(savedMsg);
+  } catch (error) {
+    res.status(500).json(err);
+  }
+});
+router.get("/messages/:conversationId", authenticate, async (req, res) => {
+  console.log(req.params.conversationId);
+  try {
+    const messages = await Message.find({
+      $or: [
+        {
+          $and: [
+            { conversationId: req.params.conversationId },
+            { senderId: req.rootUser._id },
+          ],
+        },
+        {
+          $and: [
+            { sender: req.params.conversationId },
+            { conversationId: req.rootUser._id },
+          ],
+        },
+      ],
+    });
+    console.log(messages);
+    res.status(200).json(messages);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 //logout page
