@@ -15,8 +15,8 @@ const Authenticate = async (req, res, next) => {
     }
     req.token = token;
     req.rootUser = rootUser;
-    req.userID = rootUser._id;
-
+   // req.userID = rootUser._id;
+ 
     next();
   } catch (err) {
     res.status(401).send("Unauthorized : No token provided");

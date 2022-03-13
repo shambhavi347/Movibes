@@ -5,6 +5,7 @@ import Login from "./Login";
 import Error from "./Error";
 import SetPreference from "./SetPreference";
 import HomePage from "./HomePage";
+import Profile from "./Profile";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/reg" element={<Register />} />
           <Route path="/home-page" element={<HomePage />} />
           <Route path="/set-preference" element={<SetPreference />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>

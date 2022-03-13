@@ -179,6 +179,13 @@ router.get("/get-friends", authenticate, async (req, res) => {
   res.send(friends);
 });
 
+//Profile page
+
+router.get("/profile",authenticate, (req,res) =>{
+    console.log("hello about");
+    res.send(req.rootUser);
+});
+
 //logout page
 router.get("/logout", (req, res) => {
   res.clearCookie("jwtoken", { path: "/" });
