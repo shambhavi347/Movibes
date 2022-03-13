@@ -9,7 +9,7 @@ const Conversation = ({ user }) => {
         alt="profilePic"
         className="convImage"
       />
-      <span className="convText">{user.username}</span>
+      <span className="convText">{user.name}</span>
     </div>
   );
 };

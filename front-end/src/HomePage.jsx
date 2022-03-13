@@ -11,6 +11,7 @@ const HomePage = () => {
   const [friends, setFriends] = useState([]);
   const navigate = useNavigate();
   const [userData, setUserdata] = useState();
+  const [text, setText] = useState("");
   const callHome = async () => {
     try {
       const res = await fetch("/home-page", {
@@ -24,7 +25,6 @@ const HomePage = () => {
       const data = await res.json();
       console.log(data);
       setUserdata(data);
-      // console.log(userData.name);
       if (!res.status === 200) {
         const error = new Error(res.error);
         throw error;
@@ -38,18 +38,25 @@ const HomePage = () => {
     callHome();
     const fetchData = async () => {
       const data = await getFriends();
-      setFriends(data);
+      let filteredData = data.filter((user) =>
+        user.name.toLowerCase().includes(text.toLowerCase())
+      );
+      setFriends(filteredData);
       console.log(friends);
     };
     fetchData();
-  }, []);
+  }, [text]);
   return (
     <>
       <NavBar2 />
       <div className="Body">
         <div className="chatMenu">
           <div className="menuWrapper">
-            <input placeholder="Search for friends..." className="menuInput" />
+            <input
+              placeholder="Search for friends..."
+              className="menuInput"
+              onChange={(e) => setText(e.target.value)}
+            />
             {friends.map((friend) => (
               <Conversation user={friend} />
             ))}
