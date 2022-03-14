@@ -247,6 +247,11 @@ div label input {
   background-color: #cddafd;
 }
  /* profile*/
+ .proForm {
+  vertical-align: right;
+   height:80px;
+ }
+
  .proBox {
   display: flex;
   align-items: right;
@@ -262,7 +267,7 @@ div label input {
 }
 
 .proImg {
-  max-width: 100%;
+  max-width: 80%;
   flex-basis: 40%;
   padding: 0;
   margin-top: -20px;

@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authenticate");
 
@@ -10,41 +11,62 @@ const User = require("../model/userSchema");
 const Preference = require("../model/preferenceSchema");
 const Friend = require("../model/friendSchema");
 
+const storage = multer.diskStorage({
+  destination: function(req,file,cb) {
+      cb(null, 'D:/MCA/MOVIBES-1/front-end/uploads/');
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname);
+  }
+});
+;
+
+const upload =  multer({storage: storage});
+
 var id = 0;
 //registration route
-router.post("/reg", async (req, res) => {
-  const { name, email, password, username, gender, age, photo } = req.body;
-  if (!name || !email || !password || !username || !gender || !age) {
+router.post("/reg", upload.single('photo'), async (req, res) => {
+ 
+  const user1= new User( { 
+    name:req.body.name,
+    email: req.body.email,
+    password: req.body.password, 
+    username: req.body.username,
+    gender: req.body.gender,
+    age: req.body.age,
+    photo: req.file.filename,
+  }) ;
+  if (!user1.name || !user1.email || !user1.password || !user1.username || !user1.gender || !user1.age) {
     return res.status(422).json({
       error: "error  field not filled properly in registration page ",
     });
   }
 
   try {
-    const userExist = await User.findOne({ email: email });
+    const userExist = await User.findOne({ email:user1.email });
 
     if (userExist) {
       return res.status(422).json({ error: "email id is already exist" });
     }
-    const userName_Exist = await User.findOne({ username: username });
+    const userName_Exist = await User.findOne({ username: user1.username });
 
     if (userName_Exist) {
       return res.status(422).json({ error: "Username is already exist" });
     }
     // for creating collection
-    const user = new User({
-      name,
-      email,
-      password,
-      username,
-      gender,
-      age,
-      photo,
-    });
+    // const user = new User({
+    //   name: req.body.name,
+    //   email: ,
+    //   password,
+    //   username,
+    //   gender,
+    //   age,
+    //   photo,
+    // });
 
-    await user.save();
+    await user1.save();
 
-    id = user._id;
+    id = user1._id;
 
     res.status(201).json({ message: "user register 👍successfull" });
   } catch (err) {
@@ -182,7 +204,6 @@ router.get("/get-friends", authenticate, async (req, res) => {
 //Profile page
 
 router.get("/profile",authenticate, (req,res) =>{
-    console.log("hello about");
     res.send(req.rootUser);
 });
 

@@ -48,7 +48,7 @@ let navigate = useNavigate();
      <div className="main">
        <h1 className="regHead"><h1>Profile</h1></h1>
        <div className="proBox">
-       <form method="GET" className="regForm">
+       <form method="GET" className="proForm">
              <h2>Username &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{userData.name} </h2>
              <h2>Age &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {userData.age}  </h2> 
              <h2>Gender &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {userData.gender} </h2>  
