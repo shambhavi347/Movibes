@@ -34,7 +34,7 @@ router.post("/reg", upload.single('photo'), async (req, res) => {
     username: req.body.username,
     gender: req.body.gender,
     age: req.body.age,
-    photo: req.file.filename,
+    photo: req.file.originalname,
   }) ;
   if (!user1.name || !user1.email || !user1.password || !user1.username || !user1.gender || !user1.age) {
     return res.status(422).json({
