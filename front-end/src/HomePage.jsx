@@ -107,7 +107,7 @@ const HomePage = () => {
           receiverId,
           text: newMessage,
         })
-      : console.log("select receiver");
+      : window.alert("select receiver");
     try {
       const res = await axios.post("/messages", message);
       setMessages([...messages, res.data]);
