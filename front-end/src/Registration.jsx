@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import profileImg from "./Image/user.jpg";
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
+
 import { validEmail, validPassword } from "./Components/Regex";
 import NavBar1 from "./NavBar1";
 const Register = () => {
@@ -21,8 +22,9 @@ const Register = () => {
     console.log(e);
     name = e.target.name;
     if (name === "photo") {
-      setPreview(URL.createObjectURL(e.target.files[0]));
+      setPreview(URL.createObjectURL(e.target.files[0])); 
       value = URL.createObjectURL(e.target.files[0]);
+     
     } else {
       value = e.target.value;
     }
@@ -42,7 +44,7 @@ const Register = () => {
       const res = await fetch("/reg", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
@@ -55,6 +57,7 @@ const Register = () => {
           photo,
         }),
       });
+  
       const reason = await res.json();
       console.log(reason.error);
       if (res.status === 422) {
@@ -79,7 +82,7 @@ const Register = () => {
             Welcome to Movibes! Create an account and follow us on this journey
           </p>
           <div className="regBox">
-            <form method="POST" className="regForm">
+            <form method="POST" className="regForm" enctype="multipart/form-data">
               <input
                 className="form-element"
                 type="text"
@@ -161,7 +164,7 @@ const Register = () => {
                   style={{ border: 0 }}
                   className="form-element"
                   type="file"
-                  accept="image/*"
+                  accept=".png, .jpeg, .jpg "
                   name="photo"
                   autoComplete="off"
                   onChange={handleChange}
