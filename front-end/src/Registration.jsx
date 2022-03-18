@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { validEmail, validPassword } from "./Components/Regex";
 import NavBar1 from "./NavBar1";
+import axios from "axios";
 const Register = () => {
   const [preview, setPreview] = useState(profileImg);
   const [user, setUser] = useState({
@@ -22,9 +23,8 @@ const Register = () => {
     console.log(e);
     name = e.target.name;
     if (name === "photo") {
-      setPreview(URL.createObjectURL(e.target.files[0])); 
-      value = URL.createObjectURL(e.target.files[0]);
-     
+      setPreview(URL.createObjectURL(e.target.files[0]));
+      value = e.target.files[0];
     } else {
       value = e.target.value;
     }
@@ -39,34 +39,58 @@ const Register = () => {
   const postData = async (e) => {
     e.preventDefault();
 
-    const { name, email, age, username, password, gender, photo } = user;
+    const { email, password } = user;
     if (validEmail.test(email) || !user || validPassword.test(password)) {
-      const res = await fetch("/reg", {
-        method: "POST",
-        headers: {
-           "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          age,
-          username,
-          password,
-          gender,
-          photo,
-        }),
-      });
-  
-      const reason = await res.json();
-      console.log(reason.error);
-      if (res.status === 422) {
-        window.alert(reason.error);
-      } else {
-        window.alert("Successfull Registration!!");
-        console.log("Successfull Registration");
-        routeChange();
-      }
+      const formData = new FormData();
+      formData.append("name", user.name);
+      formData.append("email", user.email);
+      formData.append("age", user.age);
+      formData.append("username", user.username);
+      formData.append("password", user.password);
+      formData.append("gender", user.gender);
+      formData.append("photo", user.photo);
+
+      axios
+        .post("/reg", formData)
+        .then((res) => {
+          console.log(res);
+          window.alert("Successfull Registration!!");
+          console.log("Successfull Registration");
+          routeChange();
+        })
+        .catch((err) => {
+          console.log(err);
+          window.alert(err);
+        });
+      // formData.append('photo', user.photo);
+      // formData.append('birthdate', user.birthdate);
+      // formData.append('name', user.name);
+
+      // const res = await fetch("/reg", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Accept: "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     name,
+      //     email,
+      //     age,
+      //     username,
+      //     password,
+      //     gender,
+      //     photo,
+      //   }),
+      // });
+      // const reason = await res.json();
+      // console.log(reason.error);
+      // if (res.status === 422) {
+      //   window.alert(reason.error);
+      // } else {
+      // window.alert("Successfull Registration!!");
+      // console.log("Successfull Registration");
+      // routeChange();
+      // }
     } else {
       setErr("Please Fill the entire form correctly");
     }
@@ -82,7 +106,12 @@ const Register = () => {
             Welcome to Movibes! Create an account and follow us on this journey
           </p>
           <div className="regBox">
-            <form method="POST" className="regForm" enctype="multipart/form-data">
+            <form
+              onSubmit={postData}
+              method="POST"
+              className="regForm"
+              encType="multipart/form-data"
+            >
               <input
                 className="form-element"
                 type="text"
@@ -170,10 +199,7 @@ const Register = () => {
                   onChange={handleChange}
                 />
               </div>
-              <button className=" btn" onClick={postData}>
-                Submit
-              </button>{" "}
-              <br />
+              <button className=" btn">Submit</button> <br />
               <span style={{ fontSize: "30", color: "red" }}>{err}</span>
             </form>
             <div className="img">

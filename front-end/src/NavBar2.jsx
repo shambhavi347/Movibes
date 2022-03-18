@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { logo, logout, profilepic } from "./Image/Images";
+import { logo, logout, profilepic, chatIcon } from "./Image/Images";
 
 var Style = {
   position: "fixed",
@@ -27,6 +27,7 @@ var logoStyle = {
 var logoutStyle = {
   float: "right",
   width: "3%",
+  margin: "0px 20px",
 };
 const NavBar2 = () => {
   return (
@@ -35,7 +36,7 @@ const NavBar2 = () => {
         <img className="logo" src={logo} alt="Website Logo" style={logoStyle} />
 
         <Link to="/reg" style={textStyle}>
-          {/* <IoLogOutOutline /> */ }
+          {/* <IoLogOutOutline /> */}
           <img
             className="logout"
             src={logout}
@@ -44,7 +45,7 @@ const NavBar2 = () => {
           />
         </Link>
         <Link to="/profile" style={textStyle}>
-          {/* <IoLogOutOutline /> */ }
+          {/* <IoLogOutOutline /> */}
           <img
             className="profile"
             src={profilepic}
@@ -52,7 +53,16 @@ const NavBar2 = () => {
             style={logoutStyle}
           />
         </Link>
-        
+
+        <Link to="/home-page" style={textStyle}>
+          {/* <IoLogOutOutline /> */}
+          <img
+            className="HomePage"
+            src={chatIcon}
+            alt="Website Logo"
+            style={logoutStyle}
+          />
+        </Link>
       </nav>
     </div>
   );

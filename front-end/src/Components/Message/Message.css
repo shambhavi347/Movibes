@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  padding-top: 3vh;
+  /* padding-top: 5vh; */
 }
 .msgTop {
   display: flex;
-  padding-top: 10px;
+  margin-top: 10px;
 }
 .msgTxt {
   padding: 10px;

@@ -5,5 +5,17 @@ import bckgrndLogin from "./bckgrndLogin.jpg";
 import user from "./user.jpg";
 import signup from "./sign-up.png";
 import profilepic from "./profilepic.png";
+import chatIcon from "./chatIcon.png";
+import bckgrndAbout from "./bckgrndAbout.jpg";
 
-export { logo, logout, signin, signup, bckgrndLogin, user, profilepic };
+export {
+  logo,
+  logout,
+  signin,
+  signup,
+  bckgrndLogin,
+  user,
+  profilepic,
+  chatIcon,
+  bckgrndAbout,
+};

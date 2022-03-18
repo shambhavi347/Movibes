@@ -149,7 +149,6 @@ input[type="file"]::file-selector-button:hover {
   color: white;
 }
 
-
 /* set-prefernce css */
 
 div label input {
@@ -246,13 +245,13 @@ div label input {
 .drama input:checked + span {
   background-color: #cddafd;
 }
- /* profile*/
- .proForm {
+/* profile*/
+.proForm {
   vertical-align: right;
-   height:80px;
- }
+  height: 80px;
+}
 
- .proBox {
+.proBox {
   display: flex;
   align-items: right;
   justify-content: left;
@@ -260,7 +259,7 @@ div label input {
   display: table;
   background-color: transparent;
   width: 55%;
-  position:absolute;
+  position: absolute;
   height: 100%;
   margin-top: 50px;
   border-radius: 15px;

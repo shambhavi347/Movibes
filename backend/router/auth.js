@@ -14,38 +14,43 @@ const Conversation = require("../model/conversationSchema");
 const Message = require("../model/message");
 
 const storage = multer.diskStorage({
-  destination: function(req,file,cb) {
-      cb(null, 'D:/MCA/MOVIBES-1/front-end/uploads/');
+  destination: function (req, file, cb) {
+    cb(null, "D:/MCA/Sem II/Project/Main/FinalM/front-end/uploads");
   },
   filename: function (req, file, cb) {
-      cb(null, file.originalname);
-  }
+    cb(null, file.originalname);
+  },
 });
-;
-
-const upload =  multer({storage: storage});
+const upload = multer({ storage: storage });
 
 var id = 0;
 //registration route
-router.post("/reg", upload.single('photo'), async (req, res) => {
- 
-  const user1= new User( { 
-    name:req.body.name,
+router.post("/reg", upload.single("photo"), async (req, res) => {
+  console.log("reg");
+  const user1 = new User({
+    name: req.body.name,
     email: req.body.email,
-    password: req.body.password, 
+    password: req.body.password,
     username: req.body.username,
     gender: req.body.gender,
     age: req.body.age,
     photo: req.file.originalname,
-  }) ;
-  if (!user1.name || !user1.email || !user1.password || !user1.username || !user1.gender || !user1.age) {
+  });
+  if (
+    !user1.name ||
+    !user1.email ||
+    !user1.password ||
+    !user1.username ||
+    !user1.gender ||
+    !user1.age
+  ) {
     return res.status(422).json({
       error: "error  field not filled properly in registration page ",
     });
   }
 
   try {
-    const userExist = await User.findOne({ email:user1.email });
+    const userExist = await User.findOne({ email: user1.email });
 
     if (userExist) {
       return res.status(422).json({ error: "email id is already exist" });
@@ -292,8 +297,8 @@ router.get("/messages/:conversationId", authenticate, async (req, res) => {
 
 //Profile page
 
-router.get("/profile",authenticate, (req,res) =>{
-    res.send(req.rootUser);
+router.get("/profile", authenticate, (req, res) => {
+  res.send(req.rootUser);
 });
 
 //logout page

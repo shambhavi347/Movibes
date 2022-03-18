@@ -8,6 +8,7 @@ import Message from "./Components/Message/Message";
 import { getFriends } from "./Service/api";
 import axios from "axios";
 import { io } from "socket.io-client";
+import Header from "./Components/Header";
 
 const HomePage = () => {
   const [friends, setFriends] = useState([]);
@@ -116,6 +117,7 @@ const HomePage = () => {
       console.log(error);
     }
   };
+  console.log(currentChat);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -142,11 +144,14 @@ const HomePage = () => {
           <div className="mainWrapper">
             {currentChat ? (
               <>
+                <Header friend={currentChat} />
                 <div className="chatTop">
                   {messages.map((m) => (
-                    <div ref={scrollRef}>
-                      <Message message={m} own={m.sender === userData._id} />
-                    </div>
+                    <>
+                      <div ref={scrollRef}>
+                        <Message message={m} own={m.sender === userData._id} />
+                      </div>
+                    </>
                   ))}
                 </div>
                 <div className="chatBottom">
@@ -156,7 +161,7 @@ const HomePage = () => {
                     onChange={(e) => setNewMessage(e.target.value)}
                     value={newMessage}
                   />
-                  <button className="  chatSend" onClick={handleSubmit}>
+                  <button className="chatSend" onClick={handleSubmit}>
                     Send
                   </button>
                 </div>
