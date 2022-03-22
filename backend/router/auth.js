@@ -24,6 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 var id = 0;
+
 //registration route
 router.post("/reg", upload.single("photo"), async (req, res) => {
   console.log("reg");
@@ -288,7 +289,7 @@ router.get("/messages/:conversationId", authenticate, async (req, res) => {
         },
       ],
     });
-    console.log(messages);
+    // console.log(messages);
     res.status(200).json(messages);
   } catch (err) {
     res.status(500).json(err);
@@ -301,10 +302,45 @@ router.get("/profile", authenticate, (req, res) => {
   res.send(req.rootUser);
 });
 
+//update Profile
+router.post("/update", authenticate, async (req, res) => {
+  console.log(req.rootUser._id);
+  const user = await User.findById(req.rootUser._id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.age = req.body.age || user.age;
+    user.gender = req.body.gender || user.gender;
+    const updatedUser = await user.save();
+    console.log("update successfuly");
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+    });
+  }
+});
+
 //logout page
 router.get("/logout", (req, res) => {
   res.clearCookie("jwtoken", { path: "/" });
   res.status(200).send("User logout");
+});
+
+//delete Profile
+
+router.delete("/delete", authenticate, async (req, res) => {
+  try {
+    console.log(req.rootUser._id);
+    const user = await User.findByIdAndDelete(req.rootUser._id);
+    if (user) {
+      res.json({ message: "User Deleted Successfully....!" });
+    }
+  } catch (err) {
+    console.log(err);
+    res
+      .status(404)
+      .json({ error: err.message || "Error while deleting User " });
+  }
 });
 
 module.exports = router;

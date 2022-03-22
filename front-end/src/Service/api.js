@@ -27,3 +27,20 @@ export const getMessages = async () => {
     console.log("error while calling message api");
   }
 };
+
+export const deleteUser = async () => {
+  try {
+    let respone = await axios.delete("/delete");
+    return respone.data;
+  } catch (error) {
+    console.log("error ", error);
+  }
+};
+// export const editUser = async () => {
+//   try {
+//     let respone = await axios.delete("/update");
+//     return respone.data;
+//   } catch (error) {
+//     console.log("error ", error);
+//   }
+// };

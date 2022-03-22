@@ -20,7 +20,6 @@ const Register = () => {
   const [err, setErr] = useState("");
   let name, value;
   const handleChange = (e) => {
-    console.log(e);
     name = e.target.name;
     if (name === "photo") {
       setPreview(URL.createObjectURL(e.target.files[0]));
@@ -28,6 +27,7 @@ const Register = () => {
     } else {
       value = e.target.value;
     }
+
     setUser({ ...user, [name]: value });
   };
   let navigate = useNavigate();

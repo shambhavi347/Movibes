@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const multer = require("multer");
-const bcrypt=require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    enum: ["male", "female", "others"],
+    enum: ["male", "female", "transgender"],
     required: true,
   },
   age: {
@@ -45,14 +45,14 @@ const userSchema = new mongoose.Schema({
       token: {
         type: String,
         required: true,
-      }
-    }
-  ]
+      },
+    },
+  ],
 });
 //hashing password
-userSchema.pre('save', async function(next) {
-  if(this.isModified('password')){
-       this.password= await bcrypt.hash(this.password, 12);
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 12);
   }
   next();
 });
@@ -60,12 +60,12 @@ userSchema.pre('save', async function(next) {
 //generating token
 userSchema.methods.generateAuthToken = async function () {
   try {
-    let token = jwt.sign({ _id:this._id}, process.env.SECRET_KEY);
+    let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY);
     this.tokens = this.tokens.concat({ token: token });
     await this.save();
     return token;
   } catch (err) {
-      console.log(err);  
+    console.log(err);
   }
 };
 
