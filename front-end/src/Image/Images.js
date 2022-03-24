@@ -7,6 +7,7 @@ import signup from "./sign-up.png";
 import profilepic from "./profilepic.png";
 import chatIcon from "./chatIcon.png";
 import bckgrndAbout from "./bckgrndAbout.jpg";
+import frndIcon from "./frndIcon.jpg";
 
 export {
   logo,
@@ -18,4 +19,5 @@ export {
   profilepic,
   chatIcon,
   bckgrndAbout,
+  frndIcon,
 };

@@ -6,6 +6,7 @@ import Error from "./Error";
 import SetPreference from "./SetPreference";
 import HomePage from "./HomePage";
 import Profile from "./Profile";
+import Friend from "./Friend";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/home-page" element={<HomePage />} />
           <Route path="/set-preference" element={<SetPreference />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/frnd-page" element={<Friend />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
