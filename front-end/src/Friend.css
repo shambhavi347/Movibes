@@ -1,3 +1,19 @@
 .Body {
   color: black;
 }
+.toggle {
+  width: 50%;
+  height: 10%;
+  background-color: #c8d5e4;
+  border: none;
+  color: #213455;
+  font-size: large;
+}
+
+.toggle:hover {
+  border-bottom: 2px solid #32609c;
+}
+
+.toggle:focus {
+  border-bottom: 2px solid #32609c;
+}

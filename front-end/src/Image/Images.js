@@ -8,6 +8,9 @@ import profilepic from "./profilepic.png";
 import chatIcon from "./chatIcon.png";
 import bckgrndAbout from "./bckgrndAbout.jpg";
 import frndIcon from "./frndIcon.jpg";
+import accept from "./accept.png";
+import reject from "./reject.png";
+import cancel from "./cancel.png";
 
 export {
   logo,
@@ -20,4 +23,7 @@ export {
   chatIcon,
   bckgrndAbout,
   frndIcon,
+  accept,
+  reject,
+  cancel,
 };

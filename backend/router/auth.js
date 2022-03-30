@@ -4,6 +4,7 @@ const router = express.Router();
 const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authenticate");
+let p = require("python-shell");
 
 require("../db/conn");
 
@@ -12,6 +13,7 @@ const Preference = require("../model/preferenceSchema");
 const Friend = require("../model/friendSchema");
 const Conversation = require("../model/conversationSchema");
 const Message = require("../model/message");
+const { json } = require("express");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -27,7 +29,7 @@ var id = 0;
 
 //registration route
 router.post("/reg", upload.single("photo"), async (req, res) => {
-  console.log("reg");
+  // console.log("reg");
   const user1 = new User({
     name: req.body.name,
     email: req.body.email,
@@ -113,6 +115,7 @@ router.post("/", async (req, res) => {
     console.log(err);
   }
 });
+
 //set preference route
 
 router.post("/set-preference", async (req, res) => {
@@ -185,14 +188,14 @@ router.post("/set-preference", async (req, res) => {
 
 //home page
 router.get("/home-page", authenticate, async (req, res) => {
-  console.log("hello home page");
-  console.log(req.rootUser._id);
+  // console.log("hello home page");
+  // console.log(req.rootUser._id);
   res.send(req.rootUser);
 });
 
 //get Friends
 router.get("/get-friends", authenticate, (req, res) => {
-  console.log("hello friend page");
+  // console.log("hello friend page");
 
   var friendID = [];
   Friend.find({
@@ -206,8 +209,6 @@ router.get("/get-friends", authenticate, (req, res) => {
     ],
   })
     .then((data) => {
-      console.log("Friends found ");
-
       data.map((d, k) => {
         friendID.push(d.id_friend);
       });
@@ -270,8 +271,9 @@ router.post("/messages", authenticate, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 router.get("/messages/:conversationId", authenticate, async (req, res) => {
-  console.log(req.params.conversationId);
+  // console.log(req.params.conversationId);
   try {
     const messages = await Message.find({
       $or: [
@@ -304,7 +306,7 @@ router.get("/profile", authenticate, (req, res) => {
 
 //update Profile
 router.post("/update", authenticate, async (req, res) => {
-  console.log(req.rootUser._id);
+  // console.log(req.rootUser._id);
   const user = await User.findById(req.rootUser._id);
   if (user) {
     user.name = req.body.name || user.name;
@@ -330,7 +332,7 @@ router.get("/logout", (req, res) => {
 
 router.delete("/delete", authenticate, async (req, res) => {
   try {
-    console.log(req.rootUser._id);
+    // console.log(req.rootUser._id);
     const user = await User.findByIdAndDelete(req.rootUser._id);
     if (user) {
       res.json({ message: "User Deleted Successfully....!" });
@@ -341,6 +343,182 @@ router.delete("/delete", authenticate, async (req, res) => {
       .status(404)
       .json({ error: err.message || "Error while deleting User " });
   }
+});
+
+//get Friends Request
+router.get("/get-requests", authenticate, (req, res) => {
+  // console.log("hello friend request page");
+
+  var friendID = [];
+  Friend.find({
+    $and: [
+      {
+        id_user: req.rootUser._id,
+      },
+      {
+        status: "pending",
+      },
+    ],
+  })
+    .then((data) => {
+      data.map((d, k) => {
+        friendID.push(d.id_friend);
+      });
+
+      User.find({ _id: { $in: friendID } })
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+//get users' pendind Request
+router.get("/get-pending", authenticate, (req, res) => {
+  // console.log("hello user's pending page");
+
+  var friendID = [];
+  Friend.find({
+    $and: [
+      {
+        id_friend: req.rootUser._id,
+      },
+      {
+        status: "pending",
+      },
+    ],
+  })
+    .then((data) => {
+      data.map((d, k) => {
+        friendID.push(d.id_user);
+      });
+
+      User.find({ _id: { $in: friendID } })
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+//accept friend request
+router.post("/accept-frn", authenticate, async (req, res) => {
+  let id_friend = req.body.friendID;
+
+  await Friend.findOneAndUpdate(
+    {
+      $and: [
+        {
+          id_user: req.rootUser._id,
+        },
+        {
+          id_friend: id_friend,
+        },
+      ],
+    },
+    { $set: { status: "accepted" } }
+  );
+});
+
+//decline friend request
+router.post("/reject-frn", authenticate, async (req, res) => {
+  let id_friend = req.body.friendID;
+  console.log(id_friend);
+  // const data = await Friend.find({
+  //   $and: [
+  //     {
+  //       $and: [
+  //         {
+  //           id_user: req.rootUser._id,
+  //         },
+  //         {
+  //           id_friend: id_friend,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       status: "pending",
+  //     },
+  //   ],
+  // });
+  // console.log(data);
+
+  // await Friend.findOneAndDelete(
+  //   {
+  //     $and: [
+  //       {
+  //         $and: [
+  //           {
+  //             id_user: req.rootUser._id,
+  //           },
+  //           {
+  //             id_friend: id_friend,
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         status: "pending",
+  //       },
+  //     ],
+  //   },
+  //   function (err, docs) {
+  //     if (err) {
+  //       console.log(err);
+  //     } else {
+  //       console.log("Deleted User : ", docs);
+  //     }
+  //   }
+  // );
+  await Friend.find(
+    {
+      id_user: req.rootUser._id,
+
+      id_friend: id_friend,
+
+      status: "pending",
+    },
+
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Result :", result);
+      }
+    }
+  ).remove();
+});
+
+//get suggested friends
+router.get("/suggeted-frn", authenticate, (req, res) => {
+  const spawn = require("child_process").spawn;
+  const data = JSON.stringify(req.rootUser._id);
+  const userIDs = [];
+  // const pythonProccess = spawn("python3", ["./main.py", req.rootUser._id]);
+  var options = {
+    args: [req.rootUser._id],
+  };
+  p.PythonShell.run("./main.py", options, function (err, results) {
+    results.map((data, k) => {
+      userIDs.push(data);
+    });
+    User.find({ _id: { $in: results } })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 });
 
 module.exports = router;
