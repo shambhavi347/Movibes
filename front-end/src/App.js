@@ -7,6 +7,7 @@ import SetPreference from "./SetPreference";
 import HomePage from "./HomePage";
 import Profile from "./Profile";
 import Friend from "./Friend";
+import Logout from "./Logout";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/frnd-page" element={<Friend />} />
           <Route path="*" element={<Error />} />
+          <Route path="/logout" element ={<Logout />}/>
         </Routes>
       </Router>
     </>
