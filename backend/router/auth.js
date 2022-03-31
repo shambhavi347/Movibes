@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authenticate");
 
 require("../db/conn");
-
+router.use(express.static("../front-end/src/"));
 const User = require("../model/userSchema");
 const Preference = require("../model/preferenceSchema");
 const Friend = require("../model/friendSchema");
@@ -15,7 +15,7 @@ const Message = require("../model/message");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "D:/MCA/Sem II/Project/Main/FinalM/front-end/uploads");
+    cb(null, "../front-end/src/uploads/");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -61,16 +61,7 @@ router.post("/reg", upload.single("photo"), async (req, res) => {
     if (userName_Exist) {
       return res.status(422).json({ error: "Username is already exist" });
     }
-    // for creating collection
-    // const user = new User({
-    //   name: req.body.name,
-    //   email: ,
-    //   password,
-    //   username,
-    //   gender,
-    //   age,
-    //   photo,
-    // });
+   
 
     await user1.save();
 
@@ -321,7 +312,8 @@ router.post("/update", authenticate, async (req, res) => {
 });
 
 //logout page
-router.get("/logout", (req, res) => {
+router.get("/logout", authenticate,(req, res) => {
+  console.log("log out page");
   res.clearCookie("jwtoken", { path: "/" });
   res.status(200).send("User logout");
 });

@@ -52,7 +52,7 @@
 }
 
 .abtImg {
-  max-width: 60%;
+  max-width: 150%;
   margin-right: 140px;
   border-radius: 50%;
   margin-top: -30px;
@@ -62,7 +62,7 @@
 }
 .editBtn {
   margin: 0px 20px;
-  width: 150px;
+  width: 150px; 
   height: 50px;
   font-size: large;
   color: rgb(6, 4, 12);

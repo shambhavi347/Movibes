@@ -33,7 +33,7 @@ const Register = () => {
   let navigate = useNavigate();
   const routeChange = () => {
     let path = "/set-preference";
-    navigate(path);
+    navigate(path); 
   };
 
   const postData = async (e) => {
@@ -62,35 +62,8 @@ const Register = () => {
           console.log(err);
           window.alert(err);
         });
-      // formData.append('photo', user.photo);
-      // formData.append('birthdate', user.birthdate);
-      // formData.append('name', user.name);
+      
 
-      // const res = await fetch("/reg", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Accept: "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     name,
-      //     email,
-      //     age,
-      //     username,
-      //     password,
-      //     gender,
-      //     photo,
-      //   }),
-      // });
-      // const reason = await res.json();
-      // console.log(reason.error);
-      // if (res.status === 422) {
-      //   window.alert(reason.error);
-      // } else {
-      // window.alert("Successfull Registration!!");
-      // console.log("Successfull Registration");
-      // routeChange();
-      // }
     } else {
       setErr("Please Fill the entire form correctly");
     }
