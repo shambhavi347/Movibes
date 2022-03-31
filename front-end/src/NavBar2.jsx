@@ -35,7 +35,7 @@ const NavBar2 = () => {
       <nav>
         <img className="logo" src={logo} alt="Website Logo" style={logoStyle} />
 
-        <Link to="/" style={textStyle}>
+        <Link to="/logout" style={textStyle}>
           {/* <IoLogOutOutline /> */}
           <img
             className="logout"

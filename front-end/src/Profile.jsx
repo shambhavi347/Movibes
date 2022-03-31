@@ -112,8 +112,7 @@ const Profile = () => {
         <h1 className="hi">Profile Page</h1>
         <div className="page">
           <div className="pic">
-            <img className="abtImg" src={profilepic} alt="singninimg" />
-
+            <img className="abtImg" src={`./uploads/${userData.photo}`} alt="..." />
             <button onClick={() => setEdit(true)} className="editBtn">
               Edit Profile
             </button>
