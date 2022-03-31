@@ -71,10 +71,10 @@ export const rejectFrn = async (data) => {
   }
 };
 
-export const getSuggested = async (data) => {
-  try {
-    await axios.get("/suggeted-frn", data);
-  } catch (error) {
-    console.log("error while calling convo api");
-  }
-};
+// export const getSuggested = async (data) => {
+//   try {
+//     await axios.get("/suggeted-frn", data);
+//   } catch (error) {
+//     console.log("error while calling convo api");
+//   }
+// };

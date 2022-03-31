@@ -49,11 +49,32 @@ const Friend = () => {
   }, [pending]);
 
   useEffect(async () => {
-    const data = await getSuggested();
-    setSuggested(data);
-    console.log(suggested);
+    try {
+      const res = await fetch("/suggeted-frn", {
+        method: "GET",
+        headers: {
+          "Content-Type": "appllication/json",
+          Accept: "application/json",
+        },
+        Credential: "include ",
+      });
+      const data = await res.json();
+      console.log(data);
+      setSuggested(data);
+      console.log(suggested);
+      if (!data) {
+        console.log("data not found");
+      }
+    } catch (err) {
+      console.log(err);
+      navigate("/");
+    }
+    // const data = await getSuggested();
+    // console.log("Suggested: " + suggested);
+    // console.log("Data: " + data);
+    // setSuggested(data);
   }, []);
-  suggested.map((req) => console.log(req));
+
   return (
     <>
       <NavBar2 />
@@ -67,7 +88,7 @@ const Friend = () => {
           </button>
           {display ? (
             <>
-              {request.map((req) => (
+              {suggested.map((req) => (
                 <Requests user={req} />
               ))}
               {/* <Requests /> <Requests /> <Requests /> */}

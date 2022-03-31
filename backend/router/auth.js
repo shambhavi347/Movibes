@@ -499,7 +499,7 @@ router.post("/reject-frn", authenticate, async (req, res) => {
 });
 
 //get suggested friends
-router.get("/suggeted-frn", authenticate, (req, res) => {
+router.get("/suggeted-frn", authenticate, async (req, res) => {
   const spawn = require("child_process").spawn;
   const data = JSON.stringify(req.rootUser._id);
   const userIDs = [];
@@ -507,18 +507,20 @@ router.get("/suggeted-frn", authenticate, (req, res) => {
   var options = {
     args: [req.rootUser._id],
   };
-  p.PythonShell.run("./main.py", options, function (err, results) {
-    results.map((data, k) => {
-      userIDs.push(data);
-    });
-    User.find({ _id: { $in: results } })
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  await p.PythonShell.run("./main.py", options, function (err, results) {
+    console.log(results);
+    res.send(results);
+    // results.map((data, k) => {
+    //   userIDs.push(data);
   });
+  //   User.find({ _id: { $in: userIDs } })
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // });
 });
 
 module.exports = router;

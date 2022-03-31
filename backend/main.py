@@ -9,19 +9,32 @@ import seaborn as sns
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn import preprocessing
 import pymongo
+
+# importing MongoClient from pymongo
+from pymongo import MongoClient
+ 
+# importing ObjectId from bson library
+from bson.objectid import ObjectId
+
+
+
 # if __name__ == "__main__":
 picked_userid = sys.argv[1]
 # print ("hello python")
 client = pymongo.MongoClient("mongodb+srv://muskan:1909@cluster0.krdt4.mongodb.net/Movibes?retryWrites=true&w=majority")
+
 #print(client)
 db = client['Movibes']
 col = db['preferences']
+colU = db['users']
 # print(db.list_collection_names())
 
-x={"username":"qwerty"}
-z={"tokens":1}
+
 y=col.find()
 w=col.find_one()
+# z=colU.find_one({"_id": ObjectId("622bb2a5689efbb6a70e8327")},{"tokens": 0,"password":0,"__v":0})
+
+# print("Z: ",z)
 # print(w)
 
 # Create user-item matrix
@@ -63,7 +76,9 @@ similar_users = user_similarity[user_similarity[picked_userid]>user_similarity_t
 lst = list(similar_users.index.values)
 
 for i in lst:
-  print(i)
+  z=colU.find_one({"_id": ObjectId(i)},{"tokens": 0,"password":0,"__v":0})
+  data = json.dumps(z)
+  print(data)
 
 
 
