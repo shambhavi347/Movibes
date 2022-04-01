@@ -133,7 +133,7 @@ const HomePage = () => {
               className="menuInput"
               onChange={(e) => setText(e.target.value)}
             />
-            {friends.map((friend) => (
+            {friends.map((friend, key) => (
               <div onClick={() => setCurrentChat(friend)}>
                 <Conversation user={friend} sender={userData} />
               </div>
@@ -146,7 +146,7 @@ const HomePage = () => {
               <>
                 <Header friend={currentChat} />
                 <div className="chatTop">
-                  {messages.map((m) => (
+                  {messages.map((m, key) => (
                     <>
                       <div ref={scrollRef}>
                         <Message message={m} own={m.sender === userData._id} />

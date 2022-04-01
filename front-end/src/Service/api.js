@@ -36,11 +36,45 @@ export const deleteUser = async () => {
     console.log("error ", error);
   }
 };
-// export const editUser = async () => {
+
+export const getRequests = async () => {
+  try {
+    let respone = await axios.get("/get-requests");
+    return respone.data;
+  } catch (error) {
+    console.log("error ", error);
+  }
+};
+
+export const getPending = async () => {
+  try {
+    let respone = await axios.get("/get-pending");
+    return respone.data;
+  } catch (error) {
+    console.log("error ", error);
+  }
+};
+
+export const acceptFrn = async (data) => {
+  try {
+    await axios.post("/accept-frn", data);
+  } catch (error) {
+    console.log("error while calling convo api");
+  }
+};
+
+export const rejectFrn = async (data) => {
+  try {
+    await axios.post("/reject-frn", data);
+  } catch (error) {
+    console.log("error while calling convo api");
+  }
+};
+
+// export const getSuggested = async (data) => {
 //   try {
-//     let respone = await axios.delete("/update");
-//     return respone.data;
+//     await axios.get("/suggeted-frn", data);
 //   } catch (error) {
-//     console.log("error ", error);
+//     console.log("error while calling convo api");
 //   }
 // };

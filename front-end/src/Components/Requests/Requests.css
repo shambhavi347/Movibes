@@ -1,0 +1,49 @@
+.Request {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  padding-left: 10px;
+  background-color: #7893b2;
+  margin: 20px 10px;
+  color: white;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+/* .Conversation:hover {
+  background-color: #32609c;
+  color: white;
+  border-radius: 20px;
+} */
+.reqImage {
+  width: 43px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.convText {
+  font-weight: 500;
+  width: 160px;
+}
+
+.response {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.resBtn {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+.ans {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  margin: 10px;
+  float: right;
+}
