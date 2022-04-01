@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/frnd-page" element={<Friend />} />
           <Route path="*" element={<Error />} />
-          <Route path="/logout" element ={<Logout />}/>
+          <Route path="/logout" element ={<Logout />} />
         </Routes>
       </Router>
     </>

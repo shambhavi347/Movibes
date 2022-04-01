@@ -179,8 +179,8 @@ router.post("/set-preference", async (req, res) => {
 
 //home page
 router.get("/home-page", authenticate, async (req, res) => {
-  // console.log("hello home page");
-  // console.log(req.rootUser._id);
+
+  console.log("hello home page");
   res.send(req.rootUser);
 });
 
@@ -314,11 +314,20 @@ router.post("/update", authenticate, async (req, res) => {
 });
 
 //logout page
-router.get("/logout", authenticate,(req, res) => {
-  console.log("log out page");
-  res.clearCookie("jwtoken", { path: "/" });
-  res.status(200).send("User logout");
-});
+router.get("/logout", authenticate,async (req, res) => {
+  try{
+    req.rootUser.tokens =  req.rootUser.tokens.filter((currtoken) =>{
+      return currtoken.token != req.token
+    })
+    res.clearCookie('jwtoken')
+    console.log("log out successfully");
+    await req.rootUser.save();
+    res.render("/");
+  }catch(err)
+  {
+    res.status(500).send(err);
+  };
+ });
 
 //delete Profile
 
