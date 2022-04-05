@@ -111,8 +111,16 @@ const Profile = () => {
       <div className="box">
         <h1 className="hi">Profile Page</h1>
         <div className="page">
-          <div className="pic">
-            <img className="abtImg" src={`./uploads/${userData.photo}`} alt="..." />
+          <div className="container1">
+            <div className="pic">
+              <img
+                className="abtImg"
+                src={
+                  userData.photo ? `./uploads/${userData.photo}` : profilepic
+                }
+                alt="profile pic"
+              />
+            </div>
             <button onClick={() => setEdit(true)} className="editBtn">
               Edit Profile
             </button>
@@ -120,11 +128,14 @@ const Profile = () => {
               Delete Profile
             </button>
           </div>
+
           <Dialog open={open} onClose={handleClose}>
-            <DialogTitle className="DialogT">Delete Account?</DialogTitle>
+            <DialogTitle className="DialogT">
+              Do you really want to leave us ? 😥💔
+            </DialogTitle>
             <DialogContent>
               <DialogContentText className="DialogC">
-                Do you really want to leave us ? 😥💔
+                Your account details will be permanently deleted!!
               </DialogContentText>
             </DialogContent>
             <DialogActions>

@@ -23,8 +23,22 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage });
 
+const maxsize = 1 * 1024 * 1024; // 1 MB
+const fileFilter = (req, file, cb) => {
+  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (allowedFileTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+    return sb(new Error("olny .jpg,  .png  and .jpeg format allowed "));
+  }
+};
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: { fileSize: maxsize },
+});
 var id = 0;
 
 //registration route
@@ -63,7 +77,6 @@ router.post("/reg", upload.single("photo"), async (req, res) => {
     if (userName_Exist) {
       return res.status(422).json({ error: "Username is already exist" });
     }
-   
 
     await user1.save();
 
@@ -179,7 +192,6 @@ router.post("/set-preference", async (req, res) => {
 
 //home page
 router.get("/home-page", authenticate, async (req, res) => {
-
   console.log("hello home page");
   res.send(req.rootUser);
 });
@@ -314,28 +326,28 @@ router.post("/update", authenticate, async (req, res) => {
 });
 
 //logout page
-router.get("/logout", authenticate,async (req, res) => {
-  try{
-    req.rootUser.tokens =  req.rootUser.tokens.filter((currtoken) =>{
-      return currtoken.token != req.token
-    })
-    res.clearCookie('jwtoken')
+router.get("/logout", authenticate, async (req, res) => {
+  try {
+    req.rootUser.tokens = req.rootUser.tokens.filter((currtoken) => {
+      return currtoken.token != req.token;
+    });
+    res.clearCookie("jwtoken");
     console.log("log out successfully");
     await req.rootUser.save();
     res.render("/");
-  }catch(err)
-  {
+  } catch (err) {
     res.status(500).send(err);
-  };
- });
+  }
+});
 
 //delete Profile
 
-router.delete("/delete", authenticate, async (req, res) => {
+router.delete("/delete", authenticate, (req, res) => {
   try {
     // console.log(req.rootUser._id);
-    const user = await User.findByIdAndDelete(req.rootUser._id);
-    if (user) {
+    const user = User.findByIdAndDelete(req.rootUser._id);
+    const pref = Preference.findByIdAndDelete(req.rootUser._id);
+    if (user && pref) {
       res.json({ message: "User Deleted Successfully....!" });
     }
   } catch (err) {

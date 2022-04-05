@@ -6,6 +6,13 @@ import NavBar1 from "./NavBar1";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePassword = () => {
+    // When the handler is invoked
+    // inverse the boolean state of passwordShown
+    setPasswordShown(!passwordShown);
+  };
 
   let navigate = useNavigate();
   const routeChange = () => {
@@ -60,13 +67,14 @@ const Login = () => {
               <input
                 className="form-element"
                 placeholder="Password..."
-                type="password"
+                type={passwordShown ? "text" : "password"}
                 name="password"
                 value={password}
                 id=""
                 autoComplete="off"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <button onClick={togglePassword}>Show Password</button>
               <button className=" btn" onClick={postData}>
                 Login
               </button>

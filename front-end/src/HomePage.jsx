@@ -149,7 +149,11 @@ const HomePage = () => {
                   {messages.map((m, key) => (
                     <>
                       <div ref={scrollRef}>
-                        <Message message={m} own={m.sender === userData._id} />
+                        <Message
+                          message={m}
+                          own={m.sender === userData._id}
+                          user={userData.photo}
+                        />
                       </div>
                     </>
                   ))}

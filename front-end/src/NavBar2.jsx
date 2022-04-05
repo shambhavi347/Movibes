@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
 import { logo, logout, profilepic, chatIcon, frndIcon } from "./Image/Images";
 
 var Style = {
@@ -29,7 +29,45 @@ var logoutStyle = {
   width: "3%",
   margin: "0px 20px",
 };
+var logoutStyleDiv = {
+  float: "right",
+  height: "40px",
+  width: "40px",
+  objectFit: "cover",
+  color: "black",
+  borderRadius: "50%",
+};
+var profile = {
+  height: "40px",
+  width: "40px",
+  borderRadius: "50%",
+};
 const NavBar2 = () => {
+  const [userData, setUserData] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(async () => {
+    try {
+      const res = await fetch("/home-page", {
+        method: "GET",
+        headers: {
+          "Content-Type": "appllication/json",
+          Accept: "application/json",
+        },
+        Credential: "include ",
+      });
+      const data = await res.json();
+      setUserData(data);
+      if (!res.status === 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
+    } catch (err) {
+      console.log(err);
+      navigate("/");
+    }
+  }, []);
+
   return (
     <div className="container" style={Style}>
       <nav>
@@ -46,12 +84,15 @@ const NavBar2 = () => {
         </Link>
         <Link to="/profile" style={textStyle}>
           {/* <IoLogOutOutline /> */}
-          <img
-            className="profile"
-            src={profilepic}
-            alt="Website Logo"
-            style={logoutStyle}
-          />
+          <div style={logoutStyleDiv}>
+            <img
+              className="profile"
+              src={userData.photo ? `./uploads/${userData.photo}` : profilepic}
+              alt="Website Logo"
+              style={profile}
+              // style={logoutStyle}
+            />
+          </div>
         </Link>
 
         <Link to="/home-page" style={textStyle}>
