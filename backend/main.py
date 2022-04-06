@@ -74,11 +74,13 @@ similar_users = user_similarity[user_similarity[picked_userid]>user_similarity_t
 # Print out top n similar users
 # print(f'The similar users for user {picked_userid} are', list(similar_users.index.values)
 lst = list(similar_users.index.values)
-
 for i in lst:
-  z=colU.find_one({"_id": ObjectId(i)},{"tokens": 0,"password":0,"__v":0})
-  data = json.dumps(z)
-  print(data)
+  print(i)
+
+# for i in lst:
+#   z=colU.find_one({"_id": ObjectId(i)},{"tokens": 0,"password":0,"__v":0})
+  
+#   print(z)
 
 
 

@@ -3,7 +3,7 @@ import "./Message.css";
 import { format } from "timeago.js";
 import { profilepic } from "../../Image/Images.js";
 
-const Message = ({ message, own, user }) => {
+const Message = ({ message, own, user, photo }) => {
   return (
     <>
       <div className={own ? "message own" : "message"}>
@@ -16,7 +16,7 @@ const Message = ({ message, own, user }) => {
             />
           ) : (
             <img
-              src="https://picsum.photos/200/300 "
+              src={photo ? `./uploads/${photo}` : profilepic}
               alt="Profile Pic"
               className="msgImage"
             />

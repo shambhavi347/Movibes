@@ -34,13 +34,13 @@ var logoutStyleDiv = {
   height: "40px",
   width: "40px",
   objectFit: "cover",
-  color: "black",
   borderRadius: "50%",
 };
 var profile = {
   height: "40px",
   width: "40px",
   borderRadius: "50%",
+  objectFit: "cover",
 };
 const NavBar2 = () => {
   const [userData, setUserData] = useState("");

@@ -192,7 +192,6 @@ router.post("/set-preference", async (req, res) => {
 
 //home page
 router.get("/home-page", authenticate, async (req, res) => {
-  console.log("hello home page");
   res.send(req.rootUser);
 });
 
@@ -512,7 +511,8 @@ router.post("/reject-frn", authenticate, async (req, res) => {
 });
 
 //get suggested friends
-router.get("/suggeted-frn", authenticate, async (req, res) => {
+router.get("/suggeted-frn", authenticate, (req, res) => {
+  console.log("hello suggested friends");
   const spawn = require("child_process").spawn;
   const data = JSON.stringify(req.rootUser._id);
   const userIDs = [];
@@ -520,8 +520,8 @@ router.get("/suggeted-frn", authenticate, async (req, res) => {
   var options = {
     args: [req.rootUser._id],
   };
-  await p.PythonShell.run("./main.py", options, function (err, results) {
-    console.log(results);
+  p.PythonShell.run("./main.py", options, function (err, results) {
+    console.log("Results: " + results);
     res.send(results);
     // results.map((data, k) => {
     //   userIDs.push(data);

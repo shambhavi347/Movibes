@@ -15,6 +15,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [userData, setUserdata] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
+  const [currentPhoto, setCurrentPhoto] = useState(null);
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -134,7 +135,14 @@ const HomePage = () => {
               onChange={(e) => setText(e.target.value)}
             />
             {friends.map((friend, key) => (
-              <div onClick={() => setCurrentChat(friend)}>
+              <div
+                onClick={() => {
+                  setCurrentChat(friend);
+                  friend.photo
+                    ? setCurrentPhoto(friend.photo)
+                    : setCurrentPhoto(null);
+                }}
+              >
                 <Conversation user={friend} sender={userData} />
               </div>
             ))}
@@ -153,6 +161,7 @@ const HomePage = () => {
                           message={m}
                           own={m.sender === userData._id}
                           user={userData.photo}
+                          photo={currentPhoto}
                         />
                       </div>
                     </>

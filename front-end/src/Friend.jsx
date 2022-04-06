@@ -5,6 +5,7 @@ import Requests from "./Components/Requests/Requests";
 import Pending from "./Components/Pending/Pending";
 import "./Friend.css";
 import { getRequests, getPending, getSuggested } from "./Service/api";
+import { profilepic } from "./Image/Images";
 
 const Friend = () => {
   const [display, setDisplay] = useState(true);
@@ -88,7 +89,7 @@ const Friend = () => {
           </button>
           {display ? (
             <>
-              {suggested.map((req) => (
+              {request.map((req) => (
                 <Requests user={req} />
               ))}
               {/* <Requests /> <Requests /> <Requests /> */}
@@ -101,7 +102,13 @@ const Friend = () => {
             </>
           )}
         </div>
-        <div className="chatMain">Friends Page</div>
+        <div className="chatMain" id="frndMenu">
+          <div className="Poloroid">
+            <div className="photo">
+              {/* <img src={profilepic} alt="profile pic" /> */}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
