@@ -1,6 +1,7 @@
 import { React } from "react";
 import "./Converstaions.css";
 import { setConverstion } from "../Service/api";
+import { profilepic } from "../Image/Images.js";
 
 const Conversation = ({ user, sender }) => {
   const setUser = async () => {
@@ -9,7 +10,7 @@ const Conversation = ({ user, sender }) => {
   return (
     <div className="Conversation" onClick={() => setUser()}>
       <img
-        src="https://picsum.photos/200/300"
+        src={user.photo ? `./uploads/${user.photo}` : profilepic}
         alt="profilePic"
         className="convImage"
       />

@@ -3,7 +3,6 @@ import NavBar2 from "./NavBar2";
 import "./Home.css";
 import Conversation from "./Components/Conversation";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
 import Message from "./Components/Message/Message";
 import { getFriends } from "./Service/api";
 import axios from "axios";

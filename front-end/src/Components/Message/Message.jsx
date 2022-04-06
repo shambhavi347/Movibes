@@ -21,7 +21,6 @@ const Message = ({ message, own, user, photo }) => {
               className="msgImage"
             />
           )}
-
           <p className="msgTxt">{message.text}</p>
         </div>
         <div className="msgBottom"></div>
@@ -30,5 +29,5 @@ const Message = ({ message, own, user, photo }) => {
     </>
   );
 };
-//
+
 export default Message;

@@ -1,4 +1,5 @@
 import React from "react";
+import { profilepic } from "../Image/Images.js";
 
 var Style = {
   position: "fixed",
@@ -30,7 +31,7 @@ const Header = ({ friend }) => {
   return (
     <div className="container" style={Style}>
       <img
-        src="https://picsum.photos/200/300"
+        src={friend.photo ? `./uploads/${friend.photo}` : profilepic}
         alt="profilepic"
         style={convImage}
       />
