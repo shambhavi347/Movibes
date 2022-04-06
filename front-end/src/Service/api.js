@@ -71,6 +71,9 @@ export const rejectFrn = async (data) => {
   }
 };
 
+
+
+
 // export const getSuggested = async (data) => {
 //   try {
 //     await axios.get("/suggeted-frn", data);

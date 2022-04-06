@@ -3,7 +3,6 @@ import NavBar2 from "./NavBar2";
 import "./Home.css";
 import Conversation from "./Components/Conversation";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
 import Message from "./Components/Message/Message";
 import { getFriends } from "./Service/api";
 import axios from "axios";
@@ -92,6 +91,7 @@ const HomePage = () => {
     getMessages();
   }, [currentChat?._id]);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
@@ -134,7 +134,7 @@ const HomePage = () => {
               onChange={(e) => setText(e.target.value)}
             />
             {friends.map((friend, key) => (
-              <div onClick={() => setCurrentChat(friend)}>
+              <div>
                 <Conversation user={friend} sender={userData} />
               </div>
             ))}

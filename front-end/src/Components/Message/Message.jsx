@@ -3,7 +3,7 @@ import "./Message.css";
 import { format } from "timeago.js";
 import { profilepic } from "../../Image/Images.js";
 
-const Message = ({ message, own, user }) => {
+const Message = ({ message, own, user , photo }) =>{      
   return (
     <>
       <div className={own ? "message own" : "message"}>
@@ -16,12 +16,11 @@ const Message = ({ message, own, user }) => {
             />
           ) : (
             <img
-              src="https://picsum.photos/200/300 "
+              src="https://picsum.photos/200/300"
               alt="Profile Pic"
               className="msgImage"
             />
           )}
-
           <p className="msgTxt">{message.text}</p>
         </div>
         <div className="msgBottom"></div>
@@ -30,5 +29,5 @@ const Message = ({ message, own, user }) => {
     </>
   );
 };
-//
+
 export default Message;
