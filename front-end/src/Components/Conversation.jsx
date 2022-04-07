@@ -4,6 +4,8 @@ import { setConverstion } from "../Service/api";
 import { profilepic } from "../Image/Images.js";
 
 const Conversation = ({ user, sender }) => {
+  console.log("USer: " + user.name);
+  console.log("Sender: " + sender.name);
   const setUser = async () => {
     await setConverstion({ senderID: sender._id, receiverID: user._id });
   };

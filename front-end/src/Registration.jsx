@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import profileImg from "./Image/user.jpg";
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
-
+// import { Registeration } from "./Service/api";
 import { validEmail, validPassword } from "./Components/Regex";
 import NavBar1 from "./NavBar1";
 import axios from "axios";
@@ -33,14 +33,22 @@ const Register = () => {
   let navigate = useNavigate();
   const routeChange = () => {
     let path = "/set-preference";
-    navigate(path); 
+    navigate(path);
   };
 
+  var error;
   const postData = async (e) => {
     e.preventDefault();
 
     const { email, password } = user;
-    if (validEmail.test(email) || !user || validPassword.test(password)) {
+    if (user.photo === null) {
+      window.alert("please select a photo");
+    } else if (
+      validEmail.test(email) ||
+      !user ||
+      validPassword.test(password)
+    ) {
+      console.log("photo: " + user.photo);
       const formData = new FormData();
       formData.append("name", user.name);
       formData.append("email", user.email);
@@ -50,7 +58,11 @@ const Register = () => {
       formData.append("gender", user.gender);
       formData.append("photo", user.photo);
 
-      axios
+      //     const response = Registeration({ formData });
+      //   }
+      // };
+
+      await axios
         .post("/reg", formData)
         .then((res) => {
           console.log(res);
@@ -59,11 +71,21 @@ const Register = () => {
           routeChange();
         })
         .catch((err) => {
-          console.log(err);
-          window.alert(err);
+          const data = JSON.stringify(err);
+          console.log(data);
+          window.alert(err.response.data.message);
         });
-      
+      // if (reason.status == 500) console.log("email exist already!!");
 
+      // const reason = await axios.post("/reg", formData);
+      // console.log("Reason: " + reason);
+      // const data = await reason.json();
+      // if (data.status === 422 || !data) {
+      //   console.log(data.error);
+      //   window.alert(data.error);
+      // } else {
+      //   window.alert("Successfull Registration!!");
+      // }
     } else {
       setErr("Please Fill the entire form correctly");
     }

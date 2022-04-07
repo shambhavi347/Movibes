@@ -24,20 +24,21 @@ const storage = multer.diskStorage({
   },
 });
 
-const maxsize = 1 * 1024 * 1024; // 1 MB
-const fileFilter = (req, file, cb) => {
-  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
-  if (allowedFileTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-    return sb(new Error("olny .jpg,  .png  and .jpeg format allowed "));
-  }
-};
+// const maxsize = 1 * 1024 * 1024; // 1 MB
+// const fileFilter = (req, file, cb) => {
+//   const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+//   if (allowedFileTypes.includes(file.mimetype)) {
+//     cb(null, true);
+//   } else {
+//     cb(null, false);
+//     return sb(new Error("olny .jpg,  .png  and .jpeg format allowed "));
+//   }
+// };
+
 const upload = multer({
   storage: storage,
-  fileFilter: fileFilter,
-  limits: { fileSize: maxsize },
+  // fileFilter: fileFilter,
+  // limits: { fileSize: maxsize },
 });
 var id = 0;
 
@@ -59,10 +60,11 @@ router.post("/reg", upload.single("photo"), async (req, res) => {
     !user1.password ||
     !user1.username ||
     !user1.gender ||
-    !user1.age
+    !user1.age ||
+    !user1.photo
   ) {
     return res.status(422).json({
-      error: "error  field not filled properly in registration page ",
+      message: "field not filled properly in registration page ",
     });
   }
 
@@ -70,12 +72,14 @@ router.post("/reg", upload.single("photo"), async (req, res) => {
     const userExist = await User.findOne({ email: user1.email });
 
     if (userExist) {
-      return res.status(422).json({ error: "email id is already exist" });
+      console.log("Exist");
+      return res.status(422).json({ message: "email id already exists" });
     }
     const userName_Exist = await User.findOne({ username: user1.username });
 
     if (userName_Exist) {
-      return res.status(422).json({ error: "Username is already exist" });
+      console.log("Exist");
+      return res.status(422).json({ message: "Username already exists" });
     }
 
     await user1.save();
@@ -197,8 +201,6 @@ router.get("/home-page", authenticate, async (req, res) => {
 
 //get Friends
 router.get("/get-friends", authenticate, (req, res) => {
-  // console.log("hello friend page");
-
   var friendID = [];
   Friend.find({
     $and: [
@@ -211,8 +213,41 @@ router.get("/get-friends", authenticate, (req, res) => {
     ],
   })
     .then((data) => {
+      console.log("Friend: " + data);
       data.map((d, k) => {
         friendID.push(d.id_friend);
+      });
+
+      User.find({ _id: { $in: friendID } })
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+//get friends
+router.get("/get-friends1", authenticate, (req, res) => {
+  var friendID = [];
+  Friend.find({
+    $and: [
+      {
+        id_friend: req.rootUser._id,
+      },
+      {
+        status: "accepted",
+      },
+    ],
+  })
+    .then((data) => {
+      console.log("Friend: " + data);
+      data.map((d, k) => {
+        friendID.push(d.id_user);
       });
 
       User.find({ _id: { $in: friendID } })
@@ -442,80 +477,70 @@ router.post("/accept-frn", authenticate, async (req, res) => {
   );
 });
 
+//get profile
+
+router.post("/get-profile", authenticate, async (req, res) => {
+  console.log("Hello Get PRofile");
+  let id_friend = req.body.ID;
+  console.log("Friend: " + id_friend);
+  try {
+    const data = await User.findById(id_friend);
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//cancel friend request
+
 //decline friend request
+
 router.post("/reject-frn", authenticate, async (req, res) => {
   let id_friend = req.body.friendID;
   console.log(id_friend);
-  // const data = await Friend.find({
-  //   $and: [
-  //     {
-  //       $and: [
-  //         {
-  //           id_user: req.rootUser._id,
-  //         },
-  //         {
-  //           id_friend: id_friend,
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       status: "pending",
-  //     },
-  //   ],
-  // });
-  // console.log(data);
-
-  // await Friend.findOneAndDelete(
-  //   {
-  //     $and: [
-  //       {
-  //         $and: [
-  //           {
-  //             id_user: req.rootUser._id,
-  //           },
-  //           {
-  //             id_friend: id_friend,
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         status: "pending",
-  //       },
-  //     ],
-  //   },
-  //   function (err, docs) {
-  //     if (err) {
-  //       console.log(err);
-  //     } else {
-  //       console.log("Deleted User : ", docs);
-  //     }
-  //   }
-  // );
-  await Friend.find(
-    {
+  try {
+    const deletefrnreq = await Friend.remove({
       id_user: req.rootUser._id,
-
       id_friend: id_friend,
-
       status: "pending",
-    },
-
-    function (err, result) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Result :", result);
-      }
+    });
+    if (deletefrnreq) {
+      console.log("delete friend successfully");
+    } else {
+      console.log("error");
     }
-  ).remove();
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//cancle request
+//Cancel friends from friend table if (i don't want to send a friend request)
+router.post("/cancel-frn", authenticate, async (req, res) => {
+  let id_friend = req.body.friendID;
+  console.log(id_friend);
+  try {
+    const deletefrnreq = await Friend.remove({
+      id_user: id_friend,
+      id_friend: req.rootUser._id,
+      status: "pending",
+    });
+    if (deletefrnreq) {
+      console.log("cancel friend request successfully");
+    } else {
+      console.log("error");
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 //get suggested friends
 router.get("/suggeted-frn", authenticate, (req, res) => {
   console.log("hello suggested friends");
-  const spawn = require("child_process").spawn;
-  const data = JSON.stringify(req.rootUser._id);
-  const userIDs = [];
+  // const spawn = require("child_process").spawn;
+  // const data = JSON.stringify(req.rootUser._id);
+  // const userIDs = [];
   // const pythonProccess = spawn("python3", ["./main.py", req.rootUser._id]);
   var options = {
     args: [req.rootUser._id],
@@ -523,17 +548,7 @@ router.get("/suggeted-frn", authenticate, (req, res) => {
   p.PythonShell.run("./main.py", options, function (err, results) {
     console.log("Results: " + results);
     res.send(results);
-    // results.map((data, k) => {
-    //   userIDs.push(data);
   });
-  //   User.find({ _id: { $in: userIDs } })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // });
 });
 
 module.exports = router;

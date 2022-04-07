@@ -29,6 +29,10 @@ var logoutStyle = {
   width: "3%",
   margin: "0px 20px",
 };
+var frndStyle = {
+  float: "right",
+  width: "3%",
+};
 var logoutStyleDiv = {
   float: "right",
   height: "40px",
@@ -107,10 +111,10 @@ const NavBar2 = () => {
         <Link to="/frnd-page" style={textStyle}>
           {/* <IoLogOutOutline /> */}
           <img
-            className="HomePage"
+            className="FriendLogo"
             src={frndIcon}
             alt="Website Logo"
-            style={logoutStyle}
+            style={frndStyle}
           />
         </Link>
       </nav>

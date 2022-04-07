@@ -1,10 +1,17 @@
 import React from "react";
-import { reject } from "../../Image/Images";
+import { reject, profilepic } from "../../Image/Images";
+import { cancelFrn } from "../../Service/api";
+
 const Pending = ({ user }) => {
+  const handleReject = async () => {
+    const data = await cancelFrn({ friendID: user._id });
+    console.log(data);
+  };
+
   return (
     <div id="req" className="Request">
       <img
-        src="https://picsum.photos/200/300"
+        src={user ? `./uploads/${user}` : profilepic}
         alt="profilePic"
         className="reqImage"
       />
@@ -12,10 +19,7 @@ const Pending = ({ user }) => {
         {user.name}
       </span>
       <div className="ans">
-        <button
-          className="resBtn"
-          onClick={() => console.log("reject clicked")}
-        >
+        <button className="resBtn" onClick={() => handleReject()}>
           <img
             className="response"
             src={reject}

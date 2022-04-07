@@ -4,7 +4,7 @@ import NavBar2 from "./NavBar2";
 import Requests from "./Components/Requests/Requests";
 import Pending from "./Components/Pending/Pending";
 import "./Friend.css";
-import { getRequests, getPending, getSuggested } from "./Service/api";
+import { getRequests, getPending, getProfile } from "./Service/api";
 import { profilepic } from "./Image/Images";
 
 const Friend = () => {
@@ -12,6 +12,8 @@ const Friend = () => {
   const [request, setRequest] = useState([]);
   const [pending, setPending] = useState([]);
   const [suggested, setSuggested] = useState([]);
+  const [count, setCount] = useState(0);
+  const [profile, setProfile] = useState([]);
   const [userData, setUserdata] = useState([]);
 
   const navigate = useNavigate();
@@ -49,6 +51,8 @@ const Friend = () => {
     setPending(data);
   }, [pending]);
 
+  let Arr = [];
+  let len;
   useEffect(async () => {
     try {
       const res = await fetch("/suggeted-frn", {
@@ -60,8 +64,19 @@ const Friend = () => {
         Credential: "include ",
       });
       const data = await res.json();
+
       console.log(data);
+      Arr = data;
+      len = Arr.length;
+      console.log(len);
+      if (count === 0) {
+        const data1 = await getProfile({ ID: Arr[0] });
+        setProfile(data1);
+      }
+      console.log("Array: " + Arr);
       setSuggested(data);
+      // Arr = Array.from(suggested).map((frnd) => ({ frnd }));
+
       console.log(suggested);
       if (!data) {
         console.log("data not found");
@@ -70,11 +85,28 @@ const Friend = () => {
       console.log(err);
       navigate("/");
     }
-    // const data = await getSuggested();
-    // console.log("Suggested: " + suggested);
-    // console.log("Data: " + data);
-    // setSuggested(data);
   }, []);
+
+  useEffect(async () => {
+    // var i = 0;
+    Arr = suggested;
+
+    //
+    console.log("Arr[" + count + "] :" + Arr[count]);
+    const data = await getProfile({ ID: Arr[count] });
+    console.log(data);
+    setProfile(data);
+    // if (count > len - 1) {
+    //   console.log("Count: " + count + " Len: " + len);
+    //   window.alert("no suggestion");
+    // }
+    // i = i + 1;
+  }, [count]);
+
+  const handleResponse = () => {
+    console.log("Clicked");
+    setCount(count + 1);
+  };
 
   return (
     <>
@@ -103,11 +135,40 @@ const Friend = () => {
           )}
         </div>
         <div className="chatMain" id="frndMenu">
-          <div className="Poloroid">
-            <div className="photo">
-              {/* <img src={profilepic} alt="profile pic" /> */}
+          <h1 className="heading">Suggested Friends</h1>
+          {profile ? (
+            <div className="Poloroid">
+              <div className="photo">
+                <img
+                  className="frnPic"
+                  src={
+                    profile.photo ? `./uploads/${profile.photo}` : profilepic
+                  }
+                  alt="profile pic"
+                />
+                <div className="Name">{profile.name}</div>
+                <div className="Buttons">
+                  <button
+                    id="tick"
+                    className="btns"
+                    onClick={() => handleResponse()}
+                  >
+                    Yess
+                  </button>
+                  <button
+                    id="wrong"
+                    className="btns"
+                    onClick={() => handleResponse()}
+                  >
+                    Nope
+                  </button>
+                </div>
+                {/* <img src={profilepic} alt="profile pic" /> */}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="noConvo">Loading...</div>
+          )}
         </div>
       </div>
     </>

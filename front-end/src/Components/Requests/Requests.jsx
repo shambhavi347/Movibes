@@ -1,5 +1,5 @@
 import React from "react";
-import { accept, reject } from "../../Image/Images";
+import { accept, reject, profilepic } from "../../Image/Images";
 import "./Requests.css";
 import { acceptFrn, rejectFrn } from "../../Service/api";
 const Requests = ({ user }) => {
@@ -15,7 +15,7 @@ const Requests = ({ user }) => {
   return (
     <div id="req" className="Request">
       <img
-        src="https://picsum.photos/200/300"
+        src={user ? `./uploads/${user}` : profilepic}
         alt="profilePic"
         className="reqImage"
       />

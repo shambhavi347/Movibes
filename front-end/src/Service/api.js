@@ -2,9 +2,26 @@ import axios from "axios";
 
 // const URL = "http://localhost:7000";
 
+// export const Registeration = async (data) => {
+//   try {
+//     await axios.post("/reg", data);
+//   } catch (error) {
+//     console.log("error ", error);
+//   }
+// };
+
 export const getFriends = async () => {
   try {
     let respone = await axios.get("/get-friends");
+    return respone.data;
+  } catch (error) {
+    console.log("error ", error);
+  }
+};
+
+export const getFriends1 = async () => {
+  try {
+    let respone = await axios.get("/get-friends1");
     return respone.data;
   } catch (error) {
     console.log("error ", error);
@@ -71,8 +88,22 @@ export const rejectFrn = async (data) => {
   }
 };
 
+export const cancelFrn = async (data) => {
+  try {
+    await axios.post("/cancel-frn", data);
+  } catch (error) {
+    console.log("error while calling convo api");
+  }
+};
 
-
+export const getProfile = async (data) => {
+  try {
+    let respone = await axios.post("/get-profile", data);
+    return respone.data;
+  } catch (error) {
+    console.log("error ", error);
+  }
+};
 
 // export const getSuggested = async (data) => {
 //   try {

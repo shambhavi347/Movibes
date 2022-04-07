@@ -66,11 +66,11 @@ user_similarity.head()
 #top 10 similar user
 n = 10
 # User similarity threashold
-user_similarity_threshold = 0.3
+user_similarity_threshold = 0
 # Get top n similar users
-similar_users = user_similarity[user_similarity[picked_userid]>user_similarity_threshold][picked_userid].sort_values(ascending=False)[:n]
+similar_users = user_similarity[user_similarity[picked_userid]>user_similarity_threshold][picked_userid].sort_values(ascending=False)
 
-
+# print("622bb2a5689efbb6a70e8327")
 # Print out top n similar users
 # print(f'The similar users for user {picked_userid} are', list(similar_users.index.values)
 lst = list(similar_users.index.values)

@@ -4,13 +4,14 @@ import "./Home.css";
 import Conversation from "./Components/Conversation";
 import { useNavigate } from "react-router-dom";
 import Message from "./Components/Message/Message";
-import { getFriends } from "./Service/api";
+import { getFriends, getFriends1 } from "./Service/api";
 import axios from "axios";
 import { io } from "socket.io-client";
 import Header from "./Components/Header";
 
 const HomePage = () => {
   const [friends, setFriends] = useState([]);
+  const [frnds, setFrnds] = useState([]);
   const navigate = useNavigate();
   const [userData, setUserdata] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -72,10 +73,18 @@ const HomePage = () => {
     callHome();
     const fetchData = async () => {
       const data = await getFriends();
+      const data1 = await getFriends1();
+      console.log("Friends: " + data);
+      data.map((friends) => console.log(friends));
       let filteredData = data.filter((user) =>
         user.name.toLowerCase().includes(text.toLowerCase())
       );
+      data1.map((friends) => console.log(friends));
+      let filteredData1 = data1.filter((user) =>
+        user.name.toLowerCase().includes(text.toLowerCase())
+      );
       setFriends(filteredData);
+      setFrnds(filteredData1);
     };
     fetchData();
   }, [text]);
@@ -134,6 +143,18 @@ const HomePage = () => {
               onChange={(e) => setText(e.target.value)}
             />
             {friends.map((friend, key) => (
+              <div
+                onClick={() => {
+                  setCurrentChat(friend);
+                  friend.photo
+                    ? setCurrentPhoto(friend.photo)
+                    : setCurrentPhoto(null);
+                }}
+              >
+                <Conversation user={friend} sender={userData} />
+              </div>
+            ))}
+            {frnds.map((friend, key) => (
               <div
                 onClick={() => {
                   setCurrentChat(friend);

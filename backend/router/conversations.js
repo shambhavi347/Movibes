@@ -2,21 +2,20 @@ const express = require("express");
 const router = express.Router();
 const Conversation = require("../model/conversationSchema");
 
-
 router.post("/home-page", async (req, res) => {
-    const newConversation = new Conversation({
-      members: [req.body.senderId, req.body.receiverId],
-    });
-  
-    try {
-      const savedConversation = await newConversation.save();
-      res.status(200).json(savedConversation);
-    } catch (err) {
-      res.status(400).json(err);
-    }
+  const newConversation = new Conversation({
+    members: [req.body.senderId, req.body.receiverId],
   });
 
-  //get conv of a user
+  try {
+    const savedConversation = await newConversation.save();
+    res.status(200).json(savedConversation);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+//get conv of a user
 
 router.get("/:userId", async (req, res) => {
   try {
@@ -36,12 +35,10 @@ router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
     const conversation = await Conversation.findOne({
       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
     });
-    res.status(200).json(conversation)
+    res.status(200).json(conversation);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-
-  module.exports = router;
-  
+module.exports = router;

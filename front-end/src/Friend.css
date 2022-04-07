@@ -23,7 +23,10 @@
   padding-top: 50px;
   padding-bottom: 50px;
 }
-
+.heading {
+  text-align: center;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
 .Poloroid {
   margin: auto;
   width: 600px;
@@ -38,4 +41,37 @@
   background-color: cadetblue;
   width: 560px;
   height: 350px;
+}
+
+.frnPic {
+  width: 560px;
+  height: 350px;
+  object-fit: cover;
+}
+
+.Name {
+  padding-top: 20px;
+  float: left;
+  color: black;
+  font-size: larger;
+}
+
+.Buttons {
+  float: right;
+}
+.btns {
+  width: 60px;
+  height: 45px;
+  color: black;
+  font-size: medium;
+  margin: 10px;
+  border-radius: 50px;
+}
+
+#tick {
+  background-color: #aaf683;
+}
+
+#wrong {
+  background-color: #ff686b;
 }

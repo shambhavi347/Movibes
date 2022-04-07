@@ -11,6 +11,8 @@ import frndIcon from "./frndIcon.jpg";
 import accept from "./accept.png";
 import reject from "./reject.png";
 import cancel from "./cancel.png";
+import tick from "./tick.png";
+import wrong from "./wrong.png";
 
 export {
   logo,
@@ -26,4 +28,6 @@ export {
   accept,
   reject,
   cancel,
+  tick,
+  wrong,
 };
