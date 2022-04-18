@@ -102,6 +102,12 @@ router.post("/", async (req, res) => {
         .status(400)
         .json({ error: "Field not filled properly in login page " });
     }
+    if(password.length>=8 && password.length<=1)
+    {
+      return res
+      .status(400)
+      .json({ error: "Password length must be [5-8] letters!" });
+    }
     const userLogin = await User.findOne({ username: username });
 
     if (userLogin) {
