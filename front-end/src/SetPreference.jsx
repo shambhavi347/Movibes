@@ -82,6 +82,7 @@ const SetPreference = () => {
           <h1 id="mHead" className="regHead">
             Set Preference
           </h1>
+          <p className="loginWelcome">Select Minimum 5 prefernces</p>
           <div className="regBox" id="genere">
             <form action="POST" className="regForm">
               <div className="movie1">

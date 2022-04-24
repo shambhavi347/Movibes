@@ -15,7 +15,7 @@ const Requests = ({ user }) => {
   return (
     <div id="req" className="Request">
       <img
-        src={user ? `./uploads/${user}` : profilepic}
+        src={user.photo ? `./uploads/${user.photo}` : profilepic}
         alt="profilePic"
         className="reqImage"
       />

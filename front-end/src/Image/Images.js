@@ -13,6 +13,9 @@ import reject from "./reject.png";
 import cancel from "./cancel.png";
 import tick from "./tick.png";
 import wrong from "./wrong.png";
+import movie_icon from "./movie_icon.png";
+import movieIcon from "./movieIcon.png";
+import YTLogo from "./YTLogo.gif";
 
 export {
   logo,
@@ -30,4 +33,7 @@ export {
   cancel,
   tick,
   wrong,
+  movie_icon,
+  movieIcon,
+  YTLogo,
 };
