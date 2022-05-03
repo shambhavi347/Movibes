@@ -3,10 +3,10 @@ import { accept, reject, profilepic } from "../../Image/Images";
 import "./Requests.css";
 import { acceptFrn, rejectFrn } from "../../Service/api";
 const Requests = ({ user }) => {
-  console.log(user);
+  // console.log(user);
   const handleAccept = async () => {
     const data = await acceptFrn({ friendID: user._id });
-    console.log(data);
+    // console.log(data);
   };
   const handleReject = async () => {
     const data = await rejectFrn({ friendID: user._id });

@@ -1,4 +1,3 @@
-//import React from "react";
 import React, { useState } from "react";
 import { signin } from "./Image/Images";
 import { useNavigate } from "react-router-dom";
@@ -6,13 +5,6 @@ import NavBar1 from "./NavBar1";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [passwordShown, setPasswordShown] = useState(false);
-
-  // const togglePassword = () => {
-  //   // When the handler is invoked
-  //   // inverse the boolean state of passwordShown
-  //   setPasswordShown(!passwordShown);
-  // };
 
   let navigate = useNavigate();
   const routeChange = () => {

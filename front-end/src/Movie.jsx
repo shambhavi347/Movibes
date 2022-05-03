@@ -1,5 +1,6 @@
 import React from "react";
 import SearchBar from "./Components/Searchbar";
+import NavBar2 from "./NavBar2";
 import youtube from "./Service/Youtube";
 import VideoList from "./Components/VideoList";
 import VideoDetail from "./Components/VideoDetail";
@@ -33,30 +34,93 @@ class Movie extends React.Component {
     };
     return (
       <>
-        <div className="Body">
+        <NavBar2 />
+        <div className="Body" id="Movie">
           <div className="wrapper">
-            <div className="Logo">
-              <SearchBar handleFormSubmit={this.handleSubmit} />
-            </div>
-            <div className="Details">
-              <VideoDetail video={this.state.selectedVideo} />
-            </div>
-          </div>
+            <div className="FeedBack">
+              <h1 className="Mhead" id="Mhead">
+                FeedBack Form
+              </h1>
+              <form action="POST" className="regForm" id="feedFrm">
+                <div className="movie1">
+                  <div className="movie action">
+                    <label>
+                      <input type="checkbox" value="1" name="action" />
+                      <span>Action</span>
+                    </label>
+                  </div>
 
-          {/* <div className="SrchBar">
-            <div className="Bar">SearchBar</div>
-            <div className="dtls">Movie Details</div>
-            <SearchBar handleFormSubmit={this.handleSubmit} />
+                  <div className="movie animated">
+                    <label>
+                      <input type="checkbox" name="animated" value="1" />
+                      <span>Animated</span>
+                    </label>
+                  </div>
+
+                  <div className="movie comedy">
+                    <label>
+                      <input type="checkbox" name="comedy" value="1" />
+                      <span>Comedy</span>
+                    </label>
+                  </div>
+                </div>
+                <div className="movie2">
+                  <div className="movie drama">
+                    <label>
+                      <input type="checkbox" name="drama" value="1" />
+                      <span>Drama</span>
+                    </label>
+                  </div>
+
+                  <div className="movie musical">
+                    <label>
+                      <input type="checkbox" name="musical" value="1" />
+                      <span>Musical</span>
+                    </label>
+                  </div>
+
+                  <div className="movie mystery">
+                    <label>
+                      <input type="checkbox" name="mystery" value="1" />
+                      <span>Mystery</span>
+                    </label>
+                  </div>
+                </div>
+                <div className="mvi">
+                  <div className="movie romance">
+                    <label>
+                      <input type="checkbox" name="romance" value="1" />
+                      <span>Romance</span>
+                    </label>
+                  </div>
+                  <div className="movie sci-fi">
+                    <label>
+                      <input type="checkbox" name="sci_fi" value="1" />
+                      <span>Sci-fi</span>
+                    </label>
+                  </div>
+                  <div className="movie thriller">
+                    <label>
+                      <input type="checkbox" name="thriller" value="1" />
+                      <span>Thriller</span>
+                    </label>
+                  </div>
+                </div>
+
+                <button className="btn" id="bbtn">
+                  Submit
+                </button>
+              </form>
+            </div>
+            <div className="Other">
+              <div className="Logo">
+                <SearchBar handleFormSubmit={this.handleSubmit} />
+              </div>
+              <div className="Details">
+                <VideoDetail video={this.state.selectedVideo} />
+              </div>
+            </div>
           </div>
-          <div className="vdoDtls">
-            Video Details
-            <VideoDetail video={this.state.selectedVideo} />
-          </div> */}
-          {/* <div className="ui container">
-            <div className="ui grid">
-              <div className="ui row">
-                <div className="eleven wide column"></div> */}
-          {/* <div className="five wide column"> */}
           <div className="vdoLst">
             <VideoList
               handleVideoSelect={this.handleVideoSelect}
@@ -64,10 +128,6 @@ class Movie extends React.Component {
             />
           </div>
         </div>
-        {/* </div> */}
-        {/* </div>
-          </div>
-        </div> */}
       </>
     );
   }

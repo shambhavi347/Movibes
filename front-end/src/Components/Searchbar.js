@@ -19,7 +19,7 @@ class Searchbar extends React.Component {
           <img
             style={{
               margin: "-50px",
-              marginLeft: "355px",
+              marginLeft: "100px",
               width: "500px",
               height: "200px",
               justifyContent: "center",
@@ -38,7 +38,7 @@ class Searchbar extends React.Component {
                 style={{
                   justifyContent: "center",
                   width: "500px",
-                  marginLeft: "425px",
+                  marginLeft: "100px",
                   border: "2px solid black",
                 }}
                 onChange={this.handleChange}

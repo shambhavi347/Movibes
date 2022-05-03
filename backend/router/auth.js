@@ -15,6 +15,7 @@ const Conversation = require("../model/conversationSchema");
 const Message = require("../model/message");
 const { json } = require("express");
 
+//registration route
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "../front-end/src/uploads/");
@@ -24,17 +25,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// const maxsize = 1 * 1024 * 1024; // 1 MB
-// const fileFilter = (req, file, cb) => {
-//   const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
-//   if (allowedFileTypes.includes(file.mimetype)) {
-//     cb(null, true);
-//   } else {
-//     cb(null, false);
-//     return sb(new Error("olny .jpg,  .png  and .jpeg format allowed "));
-//   }
-// };
-
 const upload = multer({
   storage: storage,
   // fileFilter: fileFilter,
@@ -42,7 +32,6 @@ const upload = multer({
 });
 var id = 0;
 
-//registration route
 router.post("/reg", upload.single("photo"), async (req, res) => {
   // console.log("reg");
   const user1 = new User({
@@ -102,11 +91,10 @@ router.post("/", async (req, res) => {
         .status(400)
         .json({ error: "Field not filled properly in login page " });
     }
-    if(password.length>=8 && password.length<=1)
-    {
+    if (password.length >= 8 && password.length <= 1) {
       return res
-      .status(400)
-      .json({ error: "Password length must be [5-8] letters!" });
+        .status(400)
+        .json({ error: "Password length must be [5-8] letters!" });
     }
     const userLogin = await User.findOne({ username: username });
 
@@ -538,6 +526,58 @@ router.post("/reject-frn", authenticate, async (req, res) => {
       console.log("error");
     }
   } catch (err) {
+    console.log(err);
+  }
+});
+
+//delete friend
+router.post("/delete-friend", authenticate, async (req, res) => {
+  let id_friends = req.body.friendID;
+  console.log("Delete: " + id_friends);
+  try {
+    const deletefrnreq = await Friend.deleteOne({
+      $or: [
+        {
+          $and: [
+            { id_user: req.rootUser._id },
+            { id_friend: id_friends },
+            { status: "accepted" },
+          ],
+        },
+        {
+          $and: [
+            { id_user: id_friends },
+            { id_friend: req.rootUser._id },
+            { status: "accepted" },
+          ],
+        },
+      ],
+    });
+    if (deletefrnreq) {
+      console.log("delete friend successfully");
+    } else {
+      console.log("error");
+    }
+  } catch (error) {
+    console.log(err);
+  }
+});
+
+//send friend Request
+router.post("/accept-request", authenticate, async (req, res) => {
+  let id_friend = req.rootUser._id;
+  let id_user = req.body.ID;
+  let status = "pending";
+  console.log("Save: " + id_friend);
+  try {
+    const friend = new Friend({
+      id_user,
+      id_friend,
+      status,
+    });
+    await friend.save();
+    console.log("Saved Successfully");
+  } catch (error) {
     console.log(err);
   }
 });

@@ -4,7 +4,13 @@ const VideoDetail = ({ video }) => {
   if (!video) {
     return (
       <div>
-        <h1 style={{ color: "black", marginLeft: "430px" }}>
+        <h1
+          style={{
+            color: "black",
+            marginLeft: "100px",
+            width: "500px",
+          }}
+        >
           Enter any video you want to watch!!
         </h1>
         <br></br>
@@ -14,13 +20,13 @@ const VideoDetail = ({ video }) => {
             color: "black",
             width: "500px",
             height: "250px",
-            marginLeft: "420px",
+            marginLeft: "100px",
             marginRight: "20px",
           }}
         >
-          Do not Forget to fill the Feedback Form!!! Remember that our ML works
-          on the feedback that you give. Do not shy away fill it to get better
-          recommendation of friends!!
+          Choose the genres you think this video belongs to!!! Remember that our
+          Suggestion List works on the feedback that you give. Do not shy away
+          fill it to get better recommendation of friends!!
         </p>
       </div>
     );
@@ -36,8 +42,8 @@ const VideoDetail = ({ video }) => {
           allowFullScreen
           title="Video player"
           style={{
-            marginLeft: "422px",
-            marginRight: "75px",
+            marginLeft: "100px",
+            // marginRight: "200px",
             height: "300px",
             width: "500px",
           }}

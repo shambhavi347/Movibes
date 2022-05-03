@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   logo,
   logout,
@@ -7,8 +7,9 @@ import {
   chatIcon,
   frndIcon,
   movieIcon,
-  movie_icon,
+  share,
 } from "./Image/Images";
+import { v1 as uuid } from "uuid";
 
 var Style = {
   position: "fixed",
@@ -56,6 +57,13 @@ var movieStyle = {
   borderRadius: "50%",
   margin: "0px 20px",
 };
+var shareStyle = {
+  float: "right",
+  height: "70px",
+  width: "80px",
+  marginTop: "-20px",
+  marginRight: "-10px",
+};
 var profile = {
   height: "40px",
   width: "40px",
@@ -88,7 +96,9 @@ const NavBar2 = () => {
       navigate("/");
     }
   }, []);
-  const url = "/movie-page/" + userData._id;
+  // const url = "/movie-page/" + userData._id;
+  const Uid = uuid();
+  const url1 = `/room/${Uid}`;
   return (
     <div className="container" style={Style}>
       <nav>
@@ -108,7 +118,7 @@ const NavBar2 = () => {
             <img
               className="profile"
               src={userData.photo ? `./uploads/${userData.photo}` : profilepic}
-              alt="Website Logo"
+              alt="User Profile Picture"
               style={profile}
               // style={logoutStyle}
             />
@@ -119,7 +129,7 @@ const NavBar2 = () => {
           <img
             className="HomePage"
             src={chatIcon}
-            alt="Website Logo"
+            alt="Home Page Icon"
             style={logoutStyle}
           />
         </Link>
@@ -128,17 +138,26 @@ const NavBar2 = () => {
           <img
             className="FriendLogo"
             src={frndIcon}
-            alt="Website Logo"
+            alt="Friend Icon"
             style={frndStyle}
           />
         </Link>
 
-        <Link to={url} target="_blank" style={textStyle}>
+        <Link to="/movie-page" style={textStyle}>
           <img
             className="MovieLogo"
             src={movieIcon}
-            alt="Movie Logo"
+            alt="Movie Icon"
             style={movieStyle}
+          />
+        </Link>
+
+        <Link to={url1} target="_blank" style={textStyle}>
+          <img
+            className="MovieLogo"
+            src={share}
+            alt="Share Tab Logo"
+            style={shareStyle}
           />
         </Link>
       </nav>

@@ -2,9 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import NavBar2 from "./NavBar2";
 import "./Home.css";
 import Conversation from "./Components/Conversation";
+import FProfile from "./Components/FProfile";
 import { useNavigate } from "react-router-dom";
 import Message from "./Components/Message/Message";
-import { getFriends, getFriends1 } from "./Service/api";
+import { getFriends, getFriends1, setConverstion } from "./Service/api";
+import { profilepic } from "./Image/Images";
 import axios from "axios";
 import { io } from "socket.io-client";
 import Header from "./Components/Header";
@@ -16,6 +18,9 @@ const HomePage = () => {
   const [userData, setUserdata] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [currentPhoto, setCurrentPhoto] = useState(null);
+  const [CurrentProfile, setCurrentProfile] = useState(null);
+  const [fphoto, setFphoto] = useState(null);
+  const [convo, setConvo] = useState("Open a Conversation");
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -131,6 +136,11 @@ const HomePage = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const setUser = async (user) => {
+    await setConverstion({ senderID: userData._id, receiverID: user._id });
+  };
+
   return (
     <>
       <NavBar2 />
@@ -143,33 +153,84 @@ const HomePage = () => {
               onChange={(e) => setText(e.target.value)}
             />
             {friends.map((friend, key) => (
-              <div
-                onClick={() => {
-                  setCurrentChat(friend);
-                  friend.photo
-                    ? setCurrentPhoto(friend.photo)
-                    : setCurrentPhoto(null);
-                }}
-              >
-                <Conversation user={friend} sender={userData} />
+              <div className="Conversation" onClick={() => setUser(friend)}>
+                <div
+                  className="imgDiv"
+                  onClick={() => {
+                    setCurrentChat(null);
+                    setConvo(null);
+                    setCurrentProfile(friend);
+                    friend.photo ? setFphoto(friend.photo) : setFphoto(null);
+                  }}
+                >
+                  <img
+                    src={
+                      friend.photo ? `./uploads/${friend.photo}` : profilepic
+                    }
+                    alt="profilePic"
+                    className="convImage"
+                  />
+                </div>
+                <div
+                  className="textDiv"
+                  onClick={() => {
+                    setCurrentProfile(null);
+                    setCurrentChat(friend);
+                    friend.photo ? setFphoto(friend.photo) : setFphoto(null);
+                  }}
+                >
+                  <span className="convText">{friend.name}</span>
+                </div>
               </div>
             ))}
             {frnds.map((friend, key) => (
-              <div
-                onClick={() => {
-                  setCurrentChat(friend);
-                  friend.photo
-                    ? setCurrentPhoto(friend.photo)
-                    : setCurrentPhoto(null);
-                }}
-              >
-                <Conversation user={friend} sender={userData} />
+              <div className="Conversation" onClick={() => setUser(friend)}>
+                <div
+                  className="imgDiv"
+                  onClick={() => {
+                    setCurrentChat(null);
+                    setConvo(null);
+                    setCurrentProfile(friend);
+                    // friend.photo
+                    //   ? setCurrentProfile(friend.photo)
+                    //   : setCurrentProfile(null);
+                  }}
+                >
+                  <img
+                    src={
+                      friend.photo ? `./uploads/${friend.photo}` : profilepic
+                    }
+                    alt="profilePic"
+                    className="convImage"
+                  />
+                </div>
+
+                <div
+                  className="textDiv"
+                  onClick={() => {
+                    setCurrentProfile(null);
+                    setCurrentChat(friend);
+                    friend.photo
+                      ? setCurrentPhoto(friend.photo)
+                      : setCurrentPhoto(null);
+                  }}
+                >
+                  <span className="convText">{friend.name}</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
         <div className="chatMain">
           <div className="mainWrapper">
+            {CurrentProfile ? (
+              <>
+                <FProfile user={CurrentProfile} />
+              </>
+            ) : (
+              <></>
+            )}
+
             {currentChat ? (
               <>
                 <Header friend={currentChat} />
@@ -200,7 +261,7 @@ const HomePage = () => {
                 </div>
               </>
             ) : (
-              <span className="noConvo">Open a Conversation</span>
+              <span className="noConvo">{convo}</span>
             )}
           </div>
         </div>

@@ -4,7 +4,12 @@ import NavBar2 from "./NavBar2";
 import Requests from "./Components/Requests/Requests";
 import Pending from "./Components/Pending/Pending";
 import "./Friend.css";
-import { getRequests, getPending, getProfile } from "./Service/api";
+import {
+  getRequests,
+  getPending,
+  getProfile,
+  sendRequest,
+} from "./Service/api";
 import { profilepic } from "./Image/Images";
 
 const Friend = () => {
@@ -12,6 +17,7 @@ const Friend = () => {
   const [request, setRequest] = useState([]);
   const [pending, setPending] = useState([]);
   const [suggested, setSuggested] = useState([]);
+  const [message, setMessage] = useState("Loading...");
   const [count, setCount] = useState(0);
   const [profile, setProfile] = useState([]);
   const [userData, setUserdata] = useState([]);
@@ -52,7 +58,7 @@ const Friend = () => {
   }, [pending]);
 
   let Arr = [];
-  let len;
+  let len = 0;
   useEffect(async () => {
     try {
       const res = await fetch("/suggeted-frn", {
@@ -65,10 +71,10 @@ const Friend = () => {
       });
       const data = await res.json();
 
-      console.log(data);
+      // console.log(data);
       Arr = data;
       len = Arr.length;
-      console.log(len);
+      // console.log(len);
       if (count === 0) {
         const data1 = await getProfile({ ID: Arr[0] });
         setProfile(data1);
@@ -91,19 +97,25 @@ const Friend = () => {
     // var i = 0;
     Arr = suggested;
 
-    //
-    console.log("Arr[" + count + "] :" + Arr[count]);
     const data = await getProfile({ ID: Arr[count] });
     console.log(data);
     setProfile(data);
-    // if (count > len - 1) {
-    //   console.log("Count: " + count + " Len: " + len);
-    //   window.alert("no suggestion");
-    // }
-    // i = i + 1;
   }, [count]);
-
   const handleResponse = () => {
+    console.log("Clicked");
+    setCount(count + 1);
+    if (count >= len) {
+      setMessage("Refresh the page!!");
+    }
+  };
+  const handleYesResponse = async (friendID) => {
+    setCount(count + 1);
+    if (count >= len) {
+      setMessage("Refresh the page!!");
+    }
+    const data = await sendRequest({ ID: friendID });
+    window.alert(data.message);
+
     console.log("Clicked");
     setCount(count + 1);
   };
@@ -124,7 +136,6 @@ const Friend = () => {
               {request.map((req) => (
                 <Requests user={req} />
               ))}
-              {/* <Requests /> <Requests /> <Requests /> */}
             </>
           ) : (
             <>
@@ -151,7 +162,7 @@ const Friend = () => {
                   <button
                     id="tick"
                     className="btns"
-                    onClick={() => handleResponse()}
+                    onClick={() => handleYesResponse(profile._id)}
                   >
                     Yess
                   </button>
@@ -167,7 +178,9 @@ const Friend = () => {
               </div>
             </div>
           ) : (
-            <div className="noConvo">Loading...</div>
+            <div id="message" className="noConvo">
+              {message}
+            </div>
           )}
         </div>
       </div>

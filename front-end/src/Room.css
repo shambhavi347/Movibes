@@ -1,0 +1,44 @@
+.room {
+  /* background-image: url("./Image/bckgrndAbout\ \(2\).png"); */
+  background-image: url("./Image/bg5.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin: auto;
+  width: 100%;
+  color: black;
+}
+
+.head {
+  padding-top: 10px;
+  text-align: center;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.btnShare,
+.vdo {
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoHost {
+  margin-left: -40px;
+  margin-right: 20px;
+}
+.videoPart {
+  margin-right: -40px;
+  margin-left: 20px;
+}
+
+.btnShare {
+  margin-top: 10px;
+  width: 300px;
+  height: 50px;
+  color: black;
+  font-size: larger;
+  border-radius: 10px;
+  background-color: #7edef1da;
+}

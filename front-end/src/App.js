@@ -9,7 +9,8 @@ import Profile from "./Profile";
 import Friend from "./Friend";
 import Logout from "./Logout";
 import Movie from "./Movie";
-
+import Share from "./Share";
+import Room from "./Room";
 const App = () => {
   return (
     <>
@@ -21,7 +22,9 @@ const App = () => {
           <Route path="/set-preference" element={<SetPreference />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/frnd-page" element={<Friend />} />
-          <Route path="/movie-page/:userid" element={<Movie />} />
+          <Route path="/movie-page" element={<Movie />} />
+          <Route path="/share-tab" element={<Share />} />
+          <Route path="/room/:id" element={<Room />} />
           <Route path="*" element={<Error />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>

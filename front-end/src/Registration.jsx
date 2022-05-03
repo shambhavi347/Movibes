@@ -75,17 +75,6 @@ const Register = () => {
           console.log(data);
           window.alert(err.response.data.message);
         });
-      // if (reason.status == 500) console.log("email exist already!!");
-
-      // const reason = await axios.post("/reg", formData);
-      // console.log("Reason: " + reason);
-      // const data = await reason.json();
-      // if (data.status === 422 || !data) {
-      //   console.log(data.error);
-      //   window.alert(data.error);
-      // } else {
-      //   window.alert("Successfull Registration!!");
-      // }
     } else {
       setErr("Please Fill the entire form correctly");
     }

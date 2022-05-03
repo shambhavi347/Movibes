@@ -54,6 +54,24 @@ export const deleteUser = async () => {
   }
 };
 
+export const deleteFriend = async (data) => {
+  try {
+    let respone = await axios.post("/delete-friend", data);
+    return respone.data;
+  } catch (error) {
+    console.log("error ", error);
+  }
+};
+
+export const sendRequest = async (data) => {
+  try {
+    let response = await axios.post("/accept-request", data);
+    return response.data;
+  } catch (error) {
+    console.log("error ", error);
+  }
+};
+
 // export const deletePref = async () => {
 //   try {
 //     let respone = await axios.delete("/delete-pref");
