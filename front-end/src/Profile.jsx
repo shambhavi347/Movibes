@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import { deleteUser } from "./Service/api";
+import { deleteUser, deletePref } from "./Service/api";
 import "./Profile.css";
 
 const Profile = () => {

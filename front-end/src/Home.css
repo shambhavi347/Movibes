@@ -31,6 +31,21 @@
   justify-content: space-between;
   position: relative;
 }
+.menuWrapper {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+.menuWrapper::-webkit-scrollbar {
+  width: 5px;
+}
+.menuWrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+.menuWrapper::-webkit-scrollbar-thumb {
+  background-color: #405f94;
+  border-radius: 10px;
+}
 .chatTop {
   height: 100%;
   overflow-y: auto;

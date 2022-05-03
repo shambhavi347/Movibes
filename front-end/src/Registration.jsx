@@ -134,6 +134,7 @@ const Register = () => {
                 name="age"
                 value={user.age}
                 placeholder="Age..."
+                autoComplete="off"
                 onChange={handleChange}
               />
               <input

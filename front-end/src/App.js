@@ -8,6 +8,7 @@ import HomePage from "./HomePage";
 import Profile from "./Profile";
 import Friend from "./Friend";
 import Logout from "./Logout";
+import Movie from "./Movie";
 
 const App = () => {
   return (
@@ -20,8 +21,9 @@ const App = () => {
           <Route path="/set-preference" element={<SetPreference />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/frnd-page" element={<Friend />} />
+          <Route path="/movie-page/:userid" element={<Movie />} />
           <Route path="*" element={<Error />} />
-          <Route path="/logout" element ={<Logout />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>
     </>

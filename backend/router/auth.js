@@ -379,13 +379,17 @@ router.get("/logout", authenticate, async (req, res) => {
 });
 
 //delete Profile
-
-router.delete("/delete", authenticate, (req, res) => {
+let di = 0;
+router.delete("/delete-user", authenticate, async (req, res) => {
   try {
+    di = req.rootUser._id;
     // console.log(req.rootUser._id);
-    const user = User.findByIdAndDelete(req.rootUser._id);
-    const pref = Preference.findByIdAndDelete(req.rootUser._id);
-    if (user && pref) {
+    const user = await User.findByIdAndDelete(req.rootUser._id);
+    const data = await Preference.findOneAndRemove({
+      id_user: di,
+    });
+
+    if (user && data) {
       res.json({ message: "User Deleted Successfully....!" });
     }
   } catch (err) {
@@ -395,6 +399,24 @@ router.delete("/delete", authenticate, (req, res) => {
       .json({ error: err.message || "Error while deleting User " });
   }
 });
+
+// router.delete("/delete-pref", authenticate, async (req, res) => {
+//   try {
+//     // console.log(req.rootUser._id);
+//     const user = await Preference.findByIdAndDelete({
+//       id_user: di,
+//     });
+
+//     if (user) {
+//       res.json({ message: "User Deleted Successfully....!" });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res
+//       .status(404)
+//       .json({ error: err.message || "Error while deleting User " });
+//   }
+// });
 
 //get Friends Request
 router.get("/get-requests", authenticate, (req, res) => {

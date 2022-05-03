@@ -1,6 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useRef } from "react";
-import { logo, logout, profilepic, chatIcon, frndIcon } from "./Image/Images";
+import {
+  logo,
+  logout,
+  profilepic,
+  chatIcon,
+  frndIcon,
+  movieIcon,
+  movie_icon,
+} from "./Image/Images";
 
 var Style = {
   position: "fixed",
@@ -40,12 +48,21 @@ var logoutStyleDiv = {
   objectFit: "cover",
   borderRadius: "50%",
 };
+var movieStyle = {
+  float: "right",
+  height: "40px",
+  width: "40px",
+  objectFit: "cover",
+  borderRadius: "50%",
+  margin: "0px 20px",
+};
 var profile = {
   height: "40px",
   width: "40px",
   borderRadius: "50%",
   objectFit: "cover",
 };
+
 const NavBar2 = () => {
   const [userData, setUserData] = useState("");
   const navigate = useNavigate();
@@ -71,12 +88,11 @@ const NavBar2 = () => {
       navigate("/");
     }
   }, []);
-
+  const url = "/movie-page/" + userData._id;
   return (
     <div className="container" style={Style}>
       <nav>
         <img className="logo" src={logo} alt="Website Logo" style={logoStyle} />
-
         <Link to="/logout" style={textStyle}>
           {/* <IoLogOutOutline /> */}
           <img
@@ -98,7 +114,6 @@ const NavBar2 = () => {
             />
           </div>
         </Link>
-
         <Link to="/home-page" style={textStyle}>
           {/* <IoLogOutOutline /> */}
           <img
@@ -115,6 +130,15 @@ const NavBar2 = () => {
             src={frndIcon}
             alt="Website Logo"
             style={frndStyle}
+          />
+        </Link>
+
+        <Link to={url} target="_blank" style={textStyle}>
+          <img
+            className="MovieLogo"
+            src={movieIcon}
+            alt="Movie Logo"
+            style={movieStyle}
           />
         </Link>
       </nav>

@@ -47,12 +47,21 @@ export const getMessages = async () => {
 
 export const deleteUser = async () => {
   try {
-    let respone = await axios.delete("/delete");
+    let respone = await axios.delete("/delete-user");
     return respone.data;
   } catch (error) {
     console.log("error ", error);
   }
 };
+
+// export const deletePref = async () => {
+//   try {
+//     let respone = await axios.delete("/delete-pref");
+//     return respone.data;
+//   } catch (error) {
+//     console.log("error ", error);
+//   }
+// };
 
 export const getRequests = async () => {
   try {
