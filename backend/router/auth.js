@@ -55,8 +55,7 @@ router.post("/reg", upload.single("photo"), async (req, res) => {
       message: "field not filled properly in registration page ",
     });
   }
-  try{
-
+  try {
     const userExist = await User.findOne({ email: user1.email });
     if (userExist) {
       console.log("Exist email");
@@ -68,17 +67,18 @@ router.post("/reg", upload.single("photo"), async (req, res) => {
       console.log("Exist username");
       return res.status(422).json({ message: "Username already exists" });
     }
-  
-   if((user1.password.length<5) || (user1.password.length>8) )
-  {
-    console.log("user1 password length");
-    return res.status(422).json({ message: "Password length must be [5-8] letters!" });
-  }
+
+    if (user1.password.length < 5 || user1.password.length > 8) {
+      console.log("user1 password length");
+      return res
+        .status(422)
+        .json({ message: "Password length must be [5-8] letters!" });
+    }
     await user1.save();
 
     id = user1._id;
 
-    res.status(201).json({ message: "user register 👍successfull" });
+    res.status(201).json({ message: "user register successfull ✌🏼" });
   } catch (err) {
     console.log(err);
   }
@@ -94,15 +94,7 @@ router.post("/", async (req, res) => {
         .status(400)
         .json({ error: "Field not filled properly in login page " });
     }
-<<<<<<< HEAD
-    if (password.length >= 8 && password.length <= 1) {
-      return res
-        .status(400)
-        .json({ error: "Password length must be [5-8] letters!" });
-    }
-=======
-    
->>>>>>> a739572d2a3ab22982c567b0744c31c44fe2c741
+
     const userLogin = await User.findOne({ username: username });
 
     if (userLogin) {
@@ -115,7 +107,7 @@ router.post("/", async (req, res) => {
       if (!isMatch) {
         res.status(400).json({ error: "Incorrect Password" });
       } else {
-        res.status(200).json({ message: "User login  👍successfully" });
+        res.status(200).json({ message: "User login successfully ✌🏼" });
       }
     } else {
       res.status(400).json({ error: "Invalid Credientials" });
