@@ -35,12 +35,15 @@ const Register = () => {
     let path = "/set-preference";
     navigate(path);
   };
-
-  var error;
   const postData = async (e) => {
     e.preventDefault();
 
     const { email, password } = user;
+    // if(user.password.length<5 || user.password.length>8)
+    // {
+    //  // console.log("err");
+    //   window.alert("please enter password within [5-8] range");
+    // }
     if (user.photo === null) {
       window.alert("please select a photo");
     } else if (
