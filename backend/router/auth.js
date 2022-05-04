@@ -67,13 +67,6 @@ router.post("/reg", upload.single("photo"), async (req, res) => {
       console.log("Exist username");
       return res.status(422).json({ message: "Username already exists" });
     }
-
-    if (user1.password.length < 5 || user1.password.length > 8) {
-      console.log("user1 password length");
-      return res
-        .status(422)
-        .json({ message: "Password length must be [5-8] letters!" });
-    }
     await user1.save();
 
     id = user1._id;
@@ -303,7 +296,7 @@ router.post("/messages", authenticate, async (req, res) => {
 });
 
 router.get("/messages/:conversationId", authenticate, async (req, res) => {
-  // console.log(req.params.conversationId);
+  // console.log("req.params"+req.params.conversationId);
   try {
     const messages = await Message.find({
       $or: [
@@ -389,23 +382,7 @@ router.delete("/delete-user", authenticate, async (req, res) => {
   }
 });
 
-// router.delete("/delete-pref", authenticate, async (req, res) => {
-//   try {
-//     // console.log(req.rootUser._id);
-//     const user = await Preference.findByIdAndDelete({
-//       id_user: di,
-//     });
 
-//     if (user) {
-//       res.json({ message: "User Deleted Successfully....!" });
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res
-//       .status(404)
-//       .json({ error: err.message || "Error while deleting User " });
-//   }
-// });
 
 //get Friends Request
 router.get("/get-requests", authenticate, (req, res) => {
