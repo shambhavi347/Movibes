@@ -39,7 +39,6 @@ const Register = () => {
     e.preventDefault();
 
     const { email, password } = user;
-
     if (user.photo === null) {
       window.alert("please select a photo");
     } else if (

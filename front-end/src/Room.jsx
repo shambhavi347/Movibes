@@ -20,8 +20,8 @@ const Room = (props) => {
   const userStream = useRef();
   const senders = useRef([]);
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [open, setOpen] = useState(false);
+  const [count, setCount] = useState(0);
   const [preference, setPreference] = useState({
     action: 0,
     animated: 0,
@@ -33,6 +33,7 @@ const Room = (props) => {
     sci_fi: 0,
     thriller: 0,
   });
+
   searchParams.get("id");
 
   const handleClickOpen = () => {
@@ -44,6 +45,7 @@ const Room = (props) => {
   };
   const handleCount = (e) => {
     if (e.target.checked) {
+      setCount(count+1);
       setPreference({ ...preference, [e.target.name]: e.target.value });
     } else {
       setPreference({ ...preference, [e.target.name]: 0 });
@@ -366,9 +368,9 @@ const Room = (props) => {
                 </div>
               </div>
 
-              {/* <button className="btn" id="bbtn">
+              <button className="btn" id="bbtn">
                 Submit
-              </button> */}
+              </button>
             </form>
           </DialogContentText>
         </DialogContent>

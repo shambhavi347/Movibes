@@ -181,8 +181,38 @@ router.post("/set-preference", async (req, res) => {
 });
 
 //update prefernce
-router.post("/update-preference", async (req, res) => {
+router.post("/update-preference", authenticate,async (req, res) => {
+  try{
   console.log("Update Prefernce");
+     var user_id=req.rootUser._id;
+     var user1 = await Preference.findOne({ id_user: user_id});
+    // console.log(req.rootUser._id+"\n"+user1);
+     //console.log(req.rootUser);
+     if(user1)
+     {
+      user1.drama= (req.body.drama) ||user1.drama;
+      user1.romance = req.body.romance || user1.romance;
+      user1.action = req.body.action || user1.action;
+      user1.thriller = req.body.thriller || user1.thriller;
+      user1.sci_fi =req.body.sci_fi ||user1.thriller;
+      user1.comedy = req.body.comedy || user1.comedy;
+      user1.musical = req.body.musical || user1.musical;
+      user1.animated = req.body.animated ||user1.animated;
+      user1.mystery = req.body.mystery || user1.mystery;
+      await user1.save();
+      console.log("update successfuly");
+     res.status(201).json({ message: "Thankyou for your feedback!!" });
+     }
+     else
+     {
+      res.status(422).json({ error: "unauthorised person!!" });
+     }
+    }
+     catch(err)
+    {
+      console.log(err);
+    }
+
 });
 
 //home page
