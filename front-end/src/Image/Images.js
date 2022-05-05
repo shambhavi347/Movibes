@@ -18,6 +18,7 @@ import movie_icon from "./movie_icon.png";
 import movieIcon from "./movieIcon.png";
 import YTLogo from "./YTLogo.gif";
 import share from "./share.png";
+import form from "./form.png";
 
 export {
   logo,
@@ -40,4 +41,5 @@ export {
   movieIcon,
   YTLogo,
   share,
+  form,
 };

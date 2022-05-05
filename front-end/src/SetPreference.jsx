@@ -15,6 +15,7 @@ const SetPreference = () => {
     thriller: 0,
   });
 
+  //updating preferences
   const handleCount = (e) => {
     if (e.target.checked) {
       setCount(count + 1);

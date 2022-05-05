@@ -180,6 +180,11 @@ router.post("/set-preference", async (req, res) => {
   }
 });
 
+//update prefernce
+router.post("/update-preference", async (req, res) => {
+  console.log("Update Prefernce");
+});
+
 //home page
 router.get("/home-page", authenticate, async (req, res) => {
   res.send(req.rootUser);
@@ -381,8 +386,6 @@ router.delete("/delete-user", authenticate, async (req, res) => {
       .json({ error: err.message || "Error while deleting User " });
   }
 });
-
-
 
 //get Friends Request
 router.get("/get-requests", authenticate, (req, res) => {

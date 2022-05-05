@@ -78,6 +78,7 @@ const Profile = () => {
     setUpdate({ ...update, [e.target.name]: e.target.value });
   };
 
+  //update user profile
   const updateUser = async (e) => {
     e.preventDefault();
     const { name, age, gender } = update;

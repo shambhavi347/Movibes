@@ -11,6 +11,58 @@ class Movie extends React.Component {
     videos: [],
     selectedVideo: null,
   };
+  // const [preference, setPreference] = useState({
+  //   action: 0,
+  //   animated: 0,
+  //   comedy: 0,
+  //   drama: 0,
+  //   musical: 0,
+  //   mystery: 0,
+  //   romance: 0,
+  //   sci_fi: 0,
+  //   thriller: 0,
+  // });
+
+  // handleSubmitBtn = async (e) => {
+  //   e.preventDefault();
+  //   const {
+  //     action,
+  //     animated,
+  //     comedy,
+  //     drama,
+  //     musical,
+  //     mystery,
+  //     romance,
+  //     sci_fi,
+  //     thriller,
+  //   } = preference;
+  //   const res = await fetch("/update-preference", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       action,
+  //       animated,
+  //       comedy,
+  //       drama,
+  //       musical,
+  //       mystery,
+  //       romance,
+  //       sci_fi,
+  //       thriller,
+  //     }),
+  //   });
+  //   const data = await res.json();
+  //   if (data.status === 422 || !data) {
+  //     window.alert("Invalid Preference Selection!!");
+  //     console.log("Invalid Preference Selection");
+  //   } else {
+  //     window.alert("Successfull Preference Selection!!");
+  //     console.log("Successfull Preference Selection");
+  //   }
+  // };
   handleSubmit = async (termFromSearchBar) => {
     const response = await youtube.get("/search", {
       params: {
@@ -27,6 +79,9 @@ class Movie extends React.Component {
     this.setState({ selectedVideo: video });
   };
 
+  // handleCount = () => {
+  //   console.log("Change");
+  // };
   render() {
     var divStyle = {
       marginTop: "1em",

@@ -11,6 +11,8 @@ const Login = () => {
     let path = "/home-page";
     navigate(path);
   };
+
+  //fetch API
   const postData = async (e) => {
     e.preventDefault();
     const res = await fetch("/", {
@@ -25,12 +27,12 @@ const Login = () => {
       }),
     });
     const reason = await res.json();
-    console.log(reason.error);
+    // console.log(reason.error);
 
     if (res.status === 400) {
       window.alert(reason.error);
     } else {
-      console.log("Successfull Login");
+      // console.log("Successfull Login");
       routeChange();
     }
   };
