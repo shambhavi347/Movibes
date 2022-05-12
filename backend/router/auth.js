@@ -186,19 +186,125 @@ router.post("/update-preference", authenticate,async (req, res) => {
   console.log("Update Prefernce");
      var user_id=req.rootUser._id;
      var user1 = await Preference.findOne({ id_user: user_id});
-    // console.log(req.rootUser._id+"\n"+user1);
-     //console.log(req.rootUser);
      if(user1)
      {
-      user1.drama= (req.body.drama) ||user1.drama;
-      user1.romance = req.body.romance || user1.romance;
-      user1.action = req.body.action || user1.action;
-      user1.thriller = req.body.thriller || user1.thriller;
-      user1.sci_fi =req.body.sci_fi ||user1.thriller;
-      user1.comedy = req.body.comedy || user1.comedy;
-      user1.musical = req.body.musical || user1.musical;
-      user1.animated = req.body.animated ||user1.animated;
-      user1.mystery = req.body.mystery || user1.mystery;
+       //drama updation
+      if(req.body.drama==1 && user1.drama>=1)
+      {
+            user1.drama+=1;
+      }
+      else if(req.body.drama==1 && user1.drama==0)
+      {
+        user1.drama=req.body.drama;
+      }
+      else
+      {
+        user1.drama=user1.drama;
+      }
+      //romance updation
+      if(req.body.romance==1 && user1.romance>=1)
+      {
+            user1.romance+=1;
+      }
+      else if(req.body.romance==1 && user1.romance==0)
+      {
+        user1.romance=req.body.romance;
+      }
+      else
+      {
+        user1.romance=user1.romance;
+      }
+      //action updataion
+      if(req.body.action==1 && user1.action>=1)
+      {
+            user1.action+=1;
+      }
+      else if(req.body.action==1 && user1.action==0)
+      {
+        user1.action=req.body.action;
+      }
+      else
+      {
+        user1.action=user1.action;
+      }
+      //thriller updation
+      if(req.body.thriller==1 && user1.thriller>=1)
+      {
+            user1.thriller+=1;
+      }
+      else if(req.body.thriller==1 && user1.thriller==0)
+      {
+        user1.thriller=req.body.thriller;
+      }
+      else
+      {
+        user1.thriller=user1.thriller;
+      }
+      //mystery updation
+      if(req.body.mystery==1 && user1.mystery>=1)
+      {
+            user1.mystery+=1;
+      }
+      else if(req.body.mystery==1 && user1.mystery==0)
+      {
+        user1.mystery=req.body.mystery;
+      }
+      else
+      {
+        user1.mystery=user1.mystery;
+      }
+      //comedy updation
+      if(req.body.comedy==1 && user1.comedy>=1)
+      {
+            user1.comedy+=1;
+      }
+      else if(req.body.comedy==1 && user1.comedy==0)
+      {
+        user1.comedy=req.body.comedy;
+      }
+      else
+      {
+         user1.comedy=user1.comedy;
+      }
+      //musical updation
+      if(req.body.musical==1 && user1.muscial>=1)
+      {
+            user1.musical+=1;
+      }
+      else if(req.body.musical==1 && user1.musical==0)
+      {
+        user1.musical=req.body.musical;
+      }
+      else
+      {
+        user1.musical=user1.musical;
+      }
+      //sci_fi updation
+      if(req.body.sci_fi==1 && user1.sci_fi>=1)
+      {
+            user1.sci_fi+=1;
+      }
+      else if(req.body.sci_fi==1 && user1.sci_fi==0)
+      {
+        user1.sci_fi=req.body.sci_fi;
+      }  
+      else
+      {
+        user1.sci_fi= user1.sci_fi;
+      }
+     //animated updation
+      if(req.body.animated==1 && user1.animated>=1)
+      {
+            user1.animated+=1;
+      }
+      else if(req.body.animated==1 && user1.animated==0)
+      {
+        user1.animated=req.body.animated;
+      }
+     else
+     {
+      user1.animated=user1.animated;
+     }
       await user1.save();
       console.log("update successfuly");
      res.status(201).json({ message: "Thankyou for your feedback!!" });
